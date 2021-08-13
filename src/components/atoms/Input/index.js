@@ -9,7 +9,7 @@ const Input = ({
   return (
     <input
       type={type}
-      placeholder="placeholder"
+      placeholder={placeholder}
       className="p-4 w-full bg-background border-2 border-accent rounded-2xl text-secondary focus:outline-none focus:border-secondary text-base"
       value={value}
       onChange={onChange}

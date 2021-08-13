@@ -1,7 +1,7 @@
 import React from 'react';
 import variants from './text.variant';
 
-const Text = ({ text, as = 'p', variant = 'text' }) => {
+const Text = ({ text, as = 'p', variant = 'text-grey' }) => {
   const Tag = as;
   const style = variants[variant];
 

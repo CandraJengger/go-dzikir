@@ -1,9 +1,10 @@
-const color = 'text-green-700';
-
 const variants = {
-  superTitle: `${color} text-5xl`,
-  title: `${color} text-2xl`,
-  text: `text-gray-900 text-base`,
+  superTitle: `text-secondary font-medium text-2xl`,
+  title: `text-secondary font-medium text-lg`,
+  label: 'text-secondary font-bold text-base',
+  'text-grey': `text-label text-base`,
+  'text-dark': 'text-secondary text-lg',
+  tiny: 'text-xs text-primary',
 };
 
 export default variants;
