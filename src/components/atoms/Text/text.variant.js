@@ -5,6 +5,9 @@ const variants = {
   'text-grey': `text-label text-base`,
   'text-dark': 'text-secondary text-lg',
   tiny: 'text-xs text-primary',
+  'dash-title': 'text-background font-medium text-lg',
+  'dash-body': 'text-background font-bold text-3xl py-1',
+  'dash-caption': 'text-background text-base',
 };
 
 export default variants;

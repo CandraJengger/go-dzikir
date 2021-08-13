@@ -1,9 +1,12 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, Gap, Input, Text } from '../../components/atoms';
 import { PlainLayout } from '../../components/organisms';
 import HijabVector from '../../assets/images/hijab.png';
 
 const SignInPage = () => {
+  const history = useHistory();
+
   return (
     <PlainLayout>
       <div className="h-screen flex flex-col justify-center items-center">
@@ -22,7 +25,7 @@ const SignInPage = () => {
         </div>
         <Input placeholder="Masukan nama anda" />
         <Gap height="35px" width="20px" />
-        <Button text="Masuk" />
+        <Button text="Masuk" onClick={() => history.push('/home')} />
       </div>
     </PlainLayout>
   );

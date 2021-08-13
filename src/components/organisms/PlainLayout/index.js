@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PlainLayout = ({ children }) => {
-  return <section className="plain-layout">{children}</section>;
+  return <div className="plain-layout">{children}</div>;
 };
 
 export default PlainLayout;
