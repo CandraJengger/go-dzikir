@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  input::placeholder {
+    @apply text-accent;
+  }
+}
+
 @layer components {
   .plain-layout {
     @apply p-4 bg-background min-h-screen;
