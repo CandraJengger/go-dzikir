@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Gap, Label, PlainLayout, Text } from '../../components';
+import { Button, Gap, ListItem, PlainLayout, Text } from '../../components';
 import DashboardImage from '../../assets/images/dashboard.png';
 
 const HomePage = () => {
@@ -31,18 +31,16 @@ const HomePage = () => {
           <Text as="h3" variant="label" text="Yang baru anda baca" />
           <Text as="a" variant="tiny" text="Lihat semua" />
         </div>
-        <Gap height="24px" width="10px" />
-        <div className="flex justify-between items-center py-4 px-4 w-full rounded-2xl bg-background duration-300 border-2 accent">
-          <Text as="a" variant="text-primary" text="Istighfar" />
-          <Label text="33x" />
-        </div>
+        <Gap height="18px" width="10px" />
+
+        <ListItem text="Istighfar" label="33x" />
       </section>
 
       <Gap height="42px" width="10px" />
 
       <section>
         <Text as="h3" variant="label" text="Kumpulan Dzikir" />
-        <Gap height="24px" width="16px" />
+        <Gap height="18px" width="16px" />
         <div className="grid grid-cols-6 grid-rows-3 gap-3">
           <div className="col-start-1 col-end-5">
             <Button variant="secondary" text="Istighfar" />
