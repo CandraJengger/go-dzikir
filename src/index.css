@@ -10,6 +10,6 @@
 
 @layer components {
   .plain-layout {
-    @apply p-4 bg-background min-h-screen;
+    @apply p-4 pb-6 bg-background min-h-screen;
   }
 }
