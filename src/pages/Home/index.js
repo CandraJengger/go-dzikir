@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
   Button,
   Gap,
+  Input,
+  List,
   ListItem,
+  Modal,
   PlainLayout,
   Text,
 } from '../../components';
@@ -13,9 +16,22 @@ import DashboardImage from '../../assets/images/dashboard.png';
 const HomePage = () => {
   const history = useHistory();
 
+  const [openModalUsername, setOpenModalUsername] = useState(false);
+  const [openModalRecent, setOpenModalRecent] = useState(false);
+  const [userName, setUserName] = useState('Fulan');
+
+  const handleToggleModalUsername = () =>
+    setOpenModalUsername(!openModalUsername);
+  const handleToggleModalRecent = () => setOpenModalRecent(!openModalRecent);
+  const handleChangeUsername = (e) => setUserName(e.target.value);
+
   return (
     <PlainLayout>
-      <AppBar />
+      <AppBar
+        onClickImage={() => {
+          handleToggleModalUsername();
+        }}
+      />
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
       <Text as="h2" variant="title" text="Fulan bin fulan" />
@@ -35,7 +51,12 @@ const HomePage = () => {
       <section>
         <div className="flex justify-between items-center">
           <Text as="h3" variant="label" text="Yang baru anda baca" />
-          <Text as="a" variant="tiny" text="Lihat semua" />
+          <Text
+            as="a"
+            variant="tiny"
+            text="Lihat semua"
+            onClick={handleToggleModalRecent}
+          />
         </div>
         <Gap height="18px" width="10px" />
 
@@ -92,6 +113,57 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Update Name */}
+      <Modal onToggle={handleToggleModalUsername} open={openModalUsername}>
+        <Text variant="label" text="Ubah nama" />
+        <Gap height="16px" width="10px" />
+        <Input
+          placeholder="Masukkan nama anda"
+          value={userName}
+          onChange={handleChangeUsername}
+        />
+      </Modal>
+
+      {/* List recent read */}
+      <Modal onToggle={handleToggleModalRecent} open={openModalRecent}>
+        <Text variant="label" text="Yang anda baca hari ini" />
+        <Gap height="16px" width="10px" />
+        <List
+          data={[
+            {
+              id: 1,
+              time: '10:20 WIB',
+              count: 50,
+            },
+            {
+              id: 2,
+              time: '10:20 WIB',
+              count: 50,
+            },
+            {
+              id: 3,
+              time: '10:20 WIB',
+              count: 50,
+            },
+            {
+              id: 4,
+              time: '10:20 WIB',
+              count: 50,
+            },
+            {
+              id: 5,
+              time: '10:20 WIB',
+              count: 50,
+            },
+            {
+              id: 6,
+              time: '10:20 WIB',
+              count: 50,
+            },
+          ]}
+        />
+      </Modal>
     </PlainLayout>
   );
 };
