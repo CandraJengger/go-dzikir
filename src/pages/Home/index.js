@@ -1,15 +1,21 @@
 import React from 'react';
-import { Button, Gap, ListItem, PlainLayout, Text } from '../../components';
+import { useHistory } from 'react-router-dom';
+import {
+  AppBar,
+  Button,
+  Gap,
+  ListItem,
+  PlainLayout,
+  Text,
+} from '../../components';
 import DashboardImage from '../../assets/images/dashboard.png';
 
 const HomePage = () => {
+  const history = useHistory();
+
   return (
     <PlainLayout>
-      <div className="flex justify-end">
-        <span className="w-8 h-8 flex justify-center items-center text-sm bg-secondary text-background rounded-full">
-          FU
-        </span>
-      </div>
+      <AppBar />
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
       <Text as="h2" variant="title" text="Fulan bin fulan" />
@@ -33,7 +39,7 @@ const HomePage = () => {
         </div>
         <Gap height="18px" width="10px" />
 
-        <ListItem text="Istighfar" label="33x" />
+        <ListItem title="Istighfar" label="33x" variant="rounded" />
       </section>
 
       <Gap height="42px" width="10px" />
@@ -43,22 +49,46 @@ const HomePage = () => {
         <Gap height="18px" width="16px" />
         <div className="grid grid-cols-6 grid-rows-3 gap-3">
           <div className="col-start-1 col-end-5">
-            <Button variant="secondary" text="Istighfar" />
+            <Button
+              variant="secondary"
+              text="Istighfar"
+              onClick={() => history.push('/tab-dzikir')}
+            />
           </div>
           <div className="col-start-5 col-end-7">
-            <Button variant="secondary" text="Tahmid" />
+            <Button
+              variant="secondary"
+              text="Tahmid"
+              onClick={() => history.push('/tab-dzikir')}
+            />
           </div>
           <div className="col-start-1 col-end-3">
-            <Button variant="secondary" text="Takbir" />
+            <Button
+              variant="secondary"
+              text="Takbir"
+              onClick={() => history.push('/tab-dzikir')}
+            />
           </div>
           <div className="col-start-3 col-end-5">
-            <Button variant="secondary" text="Tahlil" />
+            <Button
+              variant="secondary"
+              text="Tahlil"
+              onClick={() => history.push('/tab-dzikir')}
+            />
           </div>
           <div className="col-start-5 col-end-7">
-            <Button variant="secondary" text="Tasbih" />
+            <Button
+              variant="secondary"
+              text="Tasbih"
+              onClick={() => history.push('/tab-dzikir')}
+            />
           </div>
           <div className="col-start-1 col-end-6">
-            <Button variant="secondary" text="Subhanallah walhamdulillah" />
+            <Button
+              variant="secondary"
+              text="Subhanallah walhamdulillah"
+              onClick={() => history.push('/tab-dzikir')}
+            />
           </div>
         </div>
       </section>
