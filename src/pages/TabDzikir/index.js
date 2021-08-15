@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -7,17 +7,27 @@ import {
   List,
   ListItem,
   PlainLayout,
+  TabCount,
   Text,
 } from '../../components';
 
 const TabDzikirPage = () => {
   const history = useHistory();
 
+  const [open, setOpen] = useState(false);
+  const [count, setCount] = useState(0);
+
+  const handleToggleTabCount = () => {
+    setOpen(!open);
+    setCount(0);
+  };
+  const handleIncrement = () => setCount((prevCount) => prevCount + 1);
+
   return (
     <PlainLayout>
       <AppBar withBackIcon onBack={() => history.push('/home')} />
 
-      <section>
+      <section onClick={handleToggleTabCount}>
         <Text variant="label" text="Lafadz" />
 
         <div className="text-right">
@@ -27,7 +37,7 @@ const TabDzikirPage = () => {
 
         <Gap height="18px" width="20px" />
 
-        <Button text="Mulai" />
+        <Button text="Mulai" onClick={handleToggleTabCount} />
       </section>
 
       <Gap height="42px" width="20px" />
@@ -78,6 +88,8 @@ const TabDzikirPage = () => {
         <Gap height="18px" width="20px" />
         <ListItem title="Istighfar" label="33px" variant="rounded" />
       </section>
+
+      <TabCount open={open} count={count} onTab={handleIncrement} />
     </PlainLayout>
   );
 };

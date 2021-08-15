@@ -1,5 +1,7 @@
 const variants = {
+  h0: 'text-background font-medium text-6xl',
   superTitle: `text-secondary font-medium text-2xl`,
+  'superTitle-white': `text-background font-medium text-2xl`,
   title: `text-secondary font-medium text-lg`,
   label: 'text-secondary font-bold text-base',
   'text-grey': `text-label text-base`,
