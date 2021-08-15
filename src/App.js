@@ -14,7 +14,7 @@ function App() {
         <Route path="/home">
           <HomePage />
         </Route>
-        <Route path="/tab-dzikir">
+        <Route path="/tab-dzikir/:id">
           <TabDzikirPage />
         </Route>
       </Switch>

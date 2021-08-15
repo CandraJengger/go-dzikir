@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import {
   AppBar,
   Button,
@@ -10,12 +11,18 @@ import {
   TabCount,
   Text,
 } from '../../components';
+import data from '../../data';
 
-const TabDzikirPage = () => {
+const TabDzikirPage = ({
+  match: {
+    params: { id },
+  },
+}) => {
   const history = useHistory();
 
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(0);
+  const [lafadz, setLafadz] = useState({});
 
   const handleToggleTabCount = () => {
     setOpen(!open);
@@ -23,17 +30,27 @@ const TabDzikirPage = () => {
   };
   const handleIncrement = () => setCount((prevCount) => prevCount + 1);
 
+  useEffect(() => {
+    const filter = data.filter((item) => parseInt(id) === item.id);
+    setLafadz(filter[0]);
+
+    // set window
+    window.scrollTo(0, 0);
+  }, [id]);
+
   return (
     <PlainLayout>
       <AppBar withBackIcon onBack={() => history.push('/home')} />
 
       <section onClick={handleToggleTabCount}>
         <Text variant="label" text="Lafadz" />
-
-        <div className="text-right">
-          <Text variant="text-dark" text="اَسْتَغْفِرُاللهَ الْعَظِيْمَ" />
-          <Text variant="text-dark" text="Astaghfirullah hal adzim" />
+        <Gap height="18px" width="20px" />
+        <div className="text-right mb-4">
+          <Text variant="text-arabic" text={lafadz?.arabic} />
+          <Gap height="8px" width="20px" />
+          <Text variant="text-dark" text={lafadz?.arabic_read} />
         </div>
+        <Text variant="text-grey" text={lafadz?.translation} />
 
         <Gap height="18px" width="20px" />
 
@@ -94,4 +111,4 @@ const TabDzikirPage = () => {
   );
 };
 
-export default TabDzikirPage;
+export default withRouter(TabDzikirPage);

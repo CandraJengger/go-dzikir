@@ -6,6 +6,7 @@ const variants = {
   label: 'text-secondary font-bold text-base',
   'text-grey': `text-label text-base`,
   'text-dark': 'text-secondary text-lg',
+  'text-arabic': 'text-secondary text-3xl',
   tiny: 'text-xs text-primary',
   'dash-title': 'text-background font-medium text-lg',
   'dash-body': 'text-background font-bold text-3xl py-1',

@@ -6,6 +6,10 @@
   input::placeholder {
     @apply text-accent;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @layer components {

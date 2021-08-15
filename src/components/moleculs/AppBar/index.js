@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ArrowBack from '../../../assets/images/arrow_back.svg';
 
 const AppBar = ({ name = 'JD', withBackIcon, onBack, onClickImage }) => {
+  const [alias, setAlias] = useState('');
+
+  useEffect(() => {
+    const nameSplit = name.split(' ');
+    if (nameSplit.length > 2) {
+      setAlias(nameSplit[0]?.substring(0, 1) + nameSplit[2]?.substring(0, 1));
+    } else if (nameSplit.length === 2) {
+      setAlias(nameSplit[0]?.substring(0, 1) + nameSplit[1]?.substring(0, 1));
+    } else {
+      setAlias(nameSplit[0]?.substring(0, 1));
+    }
+  }, [name]);
+
   return (
     <div
       className={
@@ -19,7 +32,7 @@ const AppBar = ({ name = 'JD', withBackIcon, onBack, onClickImage }) => {
         className="w-8 h-8 flex justify-center items-center text-sm bg-secondary text-background rounded-full"
         onClick={onClickImage}
       >
-        {name}
+        {alias.toUpperCase()}
       </span>
     </div>
   );

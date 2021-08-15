@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -12,12 +12,14 @@ import {
   Text,
 } from '../../components';
 import DashboardImage from '../../assets/images/dashboard.png';
+import HijabVector from '../../assets/images/hijab.png';
 
 const HomePage = () => {
   const history = useHistory();
 
   const [openModalUsername, setOpenModalUsername] = useState(false);
   const [openModalRecent, setOpenModalRecent] = useState(false);
+  const [openModalWelcome, setOpenModalWelcome] = useState(true);
   const [userName, setUserName] = useState('Fulan');
 
   const handleToggleModalUsername = () =>
@@ -25,16 +27,22 @@ const HomePage = () => {
   const handleToggleModalRecent = () => setOpenModalRecent(!openModalRecent);
   const handleChangeUsername = (e) => setUserName(e.target.value);
 
+  useEffect(() => {
+    // set window
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <PlainLayout>
       <AppBar
+        name={userName}
         onClickImage={() => {
           handleToggleModalUsername();
         }}
       />
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
-      <Text as="h2" variant="title" text="Fulan bin fulan" />
+      <Text as="h2" variant="title" text={userName} />
       <Gap height="32px" width="10px" />
 
       <section className="block relative">
@@ -73,42 +81,42 @@ const HomePage = () => {
             <Button
               variant="secondary"
               text="Istighfar"
-              onClick={() => history.push('/tab-dzikir')}
+              onClick={() => history.push('/tab-dzikir/1')}
             />
           </div>
           <div className="col-start-5 col-end-7">
             <Button
               variant="secondary"
               text="Tahmid"
-              onClick={() => history.push('/tab-dzikir')}
+              onClick={() => history.push('/tab-dzikir/2')}
             />
           </div>
           <div className="col-start-1 col-end-3">
             <Button
               variant="secondary"
               text="Takbir"
-              onClick={() => history.push('/tab-dzikir')}
+              onClick={() => history.push('/tab-dzikir/5')}
             />
           </div>
           <div className="col-start-3 col-end-5">
             <Button
               variant="secondary"
               text="Tahlil"
-              onClick={() => history.push('/tab-dzikir')}
+              onClick={() => history.push('/tab-dzikir/4')}
             />
           </div>
           <div className="col-start-5 col-end-7">
             <Button
               variant="secondary"
               text="Tasbih"
-              onClick={() => history.push('/tab-dzikir')}
+              onClick={() => history.push('/tab-dzikir/3')}
             />
           </div>
           <div className="col-start-1 col-end-6">
             <Button
               variant="secondary"
               text="Subhanallah walhamdulillah"
-              onClick={() => history.push('/tab-dzikir')}
+              onClick={() => history.push('/tab-dzikir/6')}
             />
           </div>
         </div>
@@ -123,6 +131,17 @@ const HomePage = () => {
           value={userName}
           onChange={handleChangeUsername}
         />
+      </Modal>
+
+      {/* Welcome */}
+      <Modal
+        onToggle={() => setOpenModalWelcome(false)}
+        open={openModalWelcome}
+      >
+        <div className="mx-auto mb-4" style={{ maxWidth: '400px' }}>
+          <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
+        </div>
+        <Button text="Ok" onClick={() => setOpenModalWelcome(false)} />
       </Modal>
 
       {/* List recent read */}
