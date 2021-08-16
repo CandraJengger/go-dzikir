@@ -3,20 +3,21 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import HomePage from './pages/Home';
 import SignInPage from './pages/SignIn';
 import TabDzikirPage from './pages/TabDzikir';
+import PrivateRoute from './routes/PrivateRoutes';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
+        <Route path="/login">
           <SignInPage />
         </Route>
-        <Route path="/home">
+        <PrivateRoute path="/" exact>
           <HomePage />
-        </Route>
-        <Route path="/tab-dzikir/:id">
+        </PrivateRoute>
+        <PrivateRoute path="/tab-dzikir/:id">
           <TabDzikirPage />
-        </Route>
+        </PrivateRoute>
       </Switch>
     </Router>
   );

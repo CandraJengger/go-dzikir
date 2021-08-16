@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Gap, Input, Text } from '../../components/atoms';
 import { PlainLayout } from '../../components/organisms';
@@ -7,9 +7,29 @@ import HijabVector from '../../assets/images/hijab.png';
 const SignInPage = () => {
   const history = useHistory();
 
+  const [name, setName] = useState('');
+
+  const start = () => {
+    if (name !== '') {
+      localStorage.setItem('user', {
+        name,
+        time: new Date(),
+        data: {},
+      });
+
+      history.push('/');
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      history.push('/');
+    }
+  }, []);
+
   return (
-    <PlainLayout>
-      <div className="h-screen flex flex-col justify-center items-center">
+    <PlainLayout className="flex flex-col justify-end">
+      <div className=" h-full flex flex-col justify-center items-center">
         <div style={{ maxWidth: '186px' }}>
           <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
         </div>
@@ -23,9 +43,13 @@ const SignInPage = () => {
           <Text text="Catat dzikirmu setiap hari." />
           <Gap height="37px" width="20px" />
         </div>
-        <Input placeholder="Masukan nama anda" />
+        <Input
+          placeholder="Masukan nama anda"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <Gap height="35px" width="20px" />
-        <Button text="Masuk" onClick={() => history.push('/home')} />
+        <Button text="Masuk" onClick={start} />
       </div>
     </PlainLayout>
   );

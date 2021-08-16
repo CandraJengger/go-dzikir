@@ -138,10 +138,17 @@ const HomePage = () => {
         onToggle={() => setOpenModalWelcome(false)}
         open={openModalWelcome}
       >
-        <div className="mx-auto mb-4" style={{ maxWidth: '400px' }}>
-          <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
+        <div className="flex flex-col items-center text-center py-6">
+          <div className="mx-auto mb-4" style={{ maxWidth: '186px' }}>
+            <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
+          </div>
+          <Gap height="16px" width="20px" />
+
+          <Text
+            variant="label"
+            text='"Hendaklah lisanmu selalu basah untuk berdzikir pada Allah"'
+          />
         </div>
-        <Button text="Ok" onClick={() => setOpenModalWelcome(false)} />
       </Modal>
 
       {/* List recent read */}

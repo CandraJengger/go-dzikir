@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PlainLayout = ({ children }) => {
-  return <div className="plain-layout">{children}</div>;
+const PlainLayout = ({ children, className }) => {
+  return <div className={`plain-layout ${className}`}>{children}</div>;
 };
 
 export default PlainLayout;

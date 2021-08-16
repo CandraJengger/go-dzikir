@@ -40,7 +40,7 @@ const TabDzikirPage = ({
 
   return (
     <PlainLayout>
-      <AppBar withBackIcon onBack={() => history.push('/home')} />
+      <AppBar withBackIcon onBack={() => history.push('/')} />
 
       <section onClick={handleToggleTabCount}>
         <Text variant="label" text="Lafadz" />
