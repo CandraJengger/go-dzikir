@@ -1,4 +1,5 @@
-import { LOGIN_LOADING, LOGOUT_USER, USER } from '../../constants/actionTypes';
+import { LOGIN_LOADING, LOGOUT_USER } from '../../constants/actionTypes';
+import { USER } from '../../constants/general';
 
 const logoutUser = () => (dispatch) => (onSuccess) => {
   dispatch({

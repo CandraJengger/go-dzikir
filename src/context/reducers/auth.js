@@ -1,4 +1,5 @@
 import {
+  ADD_DZIKIR,
   CLEAR_AUTH_STATE,
   DELETE_USER,
   GET_USER,
@@ -6,10 +7,12 @@ import {
   LOGIN_LOADING,
   LOGIN_SUCCESS,
   LOGOUT_USER,
+  USER_LOADING,
 } from '../../constants/actionTypes';
 
 const auth = (state, { type, payload }) => {
   switch (type) {
+    case USER_LOADING:
     case LOGIN_LOADING:
       return {
         ...state,
@@ -47,6 +50,7 @@ const auth = (state, { type, payload }) => {
         error: null,
       };
 
+    case ADD_DZIKIR:
     case GET_USER:
       return {
         ...state,

@@ -1,8 +1,5 @@
-import {
-  LOGIN_LOADING,
-  LOGIN_SUCCESS,
-  USER,
-} from '../../constants/actionTypes';
+import { LOGIN_LOADING, LOGIN_SUCCESS } from '../../constants/actionTypes';
+import { USER } from '../../constants/general';
 
 const loginUser = (username) => (dispatch) => (onSuccess) => {
   const user = {

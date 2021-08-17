@@ -5,6 +5,7 @@ import { PlainLayout } from '../../components/organisms';
 import HijabVector from '../../assets/images/hijab.png';
 import loginUser from '../../context/actions/loginUser';
 import { GlobalContext } from '../../context/Provider';
+import { BANNER } from '../../constants/general';
 
 const SignInPage = () => {
   const history = useHistory();
@@ -17,6 +18,10 @@ const SignInPage = () => {
       loginUser(name)(authDispatch)(() => history.replace('/'));
     }
   };
+
+  useEffect(() => {
+    sessionStorage.removeItem(BANNER);
+  }, []);
 
   return (
     <PlainLayout className="flex flex-col justify-end">

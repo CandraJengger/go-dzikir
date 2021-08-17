@@ -16,6 +16,7 @@ import HijabVector from '../../assets/images/hijab.png';
 import { GlobalContext } from '../../context/Provider';
 import logoutUser from '../../context/actions/logoutUser';
 import { formatName } from '../../helpers/name';
+import { BANNER } from '../../constants/general';
 
 const HomePage = () => {
   const history = useHistory();
@@ -34,21 +35,21 @@ const HomePage = () => {
   const handleToggleModalRecent = () => setOpenModalRecent(!openModalRecent);
   const handleModalWelcome = () => {
     setOpenModalWelcome(false);
-    sessionStorage.setItem('banner', true);
+    sessionStorage.setItem(BANNER, true);
   };
 
   const handleChangeUsername = (e) => setUserName(e.target.value);
 
   const onLogout = () => {
     logoutUser()(authDispatch)(() => history.replace('/login'));
-    sessionStorage.removeItem('banner');
+    sessionStorage.removeItem(BANNER);
   };
 
   useEffect(() => {
     // set window
     window.scrollTo(0, 0);
 
-    if (!sessionStorage.getItem('banner')) {
+    if (!sessionStorage.getItem(BANNER)) {
       setOpenModalWelcome(true);
     } else {
       setOpenModalWelcome(false);
@@ -182,40 +183,7 @@ const HomePage = () => {
       <Modal onToggle={handleToggleModalRecent} open={openModalRecent}>
         <Text variant="label" text="Yang anda baca hari ini" />
         <Gap height="16px" width="10px" />
-        <List
-          data={[
-            {
-              id: 1,
-              time: '10:20 WIB',
-              count: 50,
-            },
-            {
-              id: 2,
-              time: '10:20 WIB',
-              count: 50,
-            },
-            {
-              id: 3,
-              time: '10:20 WIB',
-              count: 50,
-            },
-            {
-              id: 4,
-              time: '10:20 WIB',
-              count: 50,
-            },
-            {
-              id: 5,
-              time: '10:20 WIB',
-              count: 50,
-            },
-            {
-              id: 6,
-              time: '10:20 WIB',
-              count: 50,
-            },
-          ]}
-        />
+        <List data={data?.data} category="all" />
       </Modal>
     </PlainLayout>
   );
