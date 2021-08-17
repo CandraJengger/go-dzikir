@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -13,23 +13,46 @@ import {
 } from '../../components';
 import DashboardImage from '../../assets/images/dashboard.png';
 import HijabVector from '../../assets/images/hijab.png';
+import { GlobalContext } from '../../context/Provider';
+import logoutUser from '../../context/actions/logoutUser';
+import { formatName } from '../../helpers/name';
 
 const HomePage = () => {
   const history = useHistory();
+  const {
+    authState: { data },
+    authDispatch,
+  } = useContext(GlobalContext);
 
   const [openModalUsername, setOpenModalUsername] = useState(false);
   const [openModalRecent, setOpenModalRecent] = useState(false);
-  const [openModalWelcome, setOpenModalWelcome] = useState(true);
-  const [userName, setUserName] = useState('Fulan');
+  const [openModalWelcome, setOpenModalWelcome] = useState(false);
+  const [userName, setUserName] = useState(data?.name);
 
   const handleToggleModalUsername = () =>
     setOpenModalUsername(!openModalUsername);
   const handleToggleModalRecent = () => setOpenModalRecent(!openModalRecent);
+  const handleModalWelcome = () => {
+    setOpenModalWelcome(false);
+    sessionStorage.setItem('banner', true);
+  };
+
   const handleChangeUsername = (e) => setUserName(e.target.value);
+
+  const onLogout = () => {
+    logoutUser()(authDispatch)(() => history.replace('/login'));
+    sessionStorage.removeItem('banner');
+  };
 
   useEffect(() => {
     // set window
     window.scrollTo(0, 0);
+
+    if (!sessionStorage.getItem('banner')) {
+      setOpenModalWelcome(true);
+    } else {
+      setOpenModalWelcome(false);
+    }
   }, []);
 
   return (
@@ -42,7 +65,7 @@ const HomePage = () => {
       />
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
-      <Text as="h2" variant="title" text={userName} />
+      <Text as="h2" variant="title" text={formatName(userName)} />
       <Gap height="32px" width="10px" />
 
       <section className="block relative">
@@ -122,22 +145,26 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Update Name */}
+      {/* Update Menu */}
       <Modal onToggle={handleToggleModalUsername} open={openModalUsername}>
-        <Text variant="label" text="Ubah nama" />
-        <Gap height="16px" width="10px" />
-        <Input
-          placeholder="Masukkan nama anda"
-          value={userName}
-          onChange={handleChangeUsername}
-        />
+        <div className="mb-4">
+          <Text variant="label" text="Ubah nama" />
+          <Gap height="16px" width="10px" />
+          <Input
+            placeholder="Masukkan nama anda"
+            value={userName}
+            onChange={handleChangeUsername}
+          />
+        </div>
+        <div>
+          <Text variant="label" text="Apakah anda ingin keluar ?" />
+          <Gap height="16px" width="10px" />
+          <Button variant="secondary" text="Ya, keluar" onClick={onLogout} />
+        </div>
       </Modal>
 
       {/* Welcome */}
-      <Modal
-        onToggle={() => setOpenModalWelcome(false)}
-        open={openModalWelcome}
-      >
+      <Modal onToggle={handleModalWelcome} open={openModalWelcome}>
         <div className="flex flex-col items-center text-center py-6">
           <div className="mx-auto mb-4" style={{ maxWidth: '186px' }}>
             <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />

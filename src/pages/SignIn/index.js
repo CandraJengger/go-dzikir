@@ -1,31 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Gap, Input, Text } from '../../components/atoms';
 import { PlainLayout } from '../../components/organisms';
 import HijabVector from '../../assets/images/hijab.png';
+import loginUser from '../../context/actions/loginUser';
+import { GlobalContext } from '../../context/Provider';
 
 const SignInPage = () => {
   const history = useHistory();
 
   const [name, setName] = useState('');
+  const { authDispatch } = useContext(GlobalContext);
 
   const start = () => {
     if (name !== '') {
-      localStorage.setItem('user', {
-        name,
-        time: new Date(),
-        data: {},
-      });
-
-      history.push('/');
+      loginUser(name)(authDispatch)(() => history.replace('/'));
     }
   };
-
-  useEffect(() => {
-    if (localStorage.getItem('user')) {
-      history.push('/');
-    }
-  }, []);
 
   return (
     <PlainLayout className="flex flex-col justify-end">
