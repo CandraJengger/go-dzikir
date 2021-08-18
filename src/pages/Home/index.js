@@ -83,7 +83,13 @@ const HomePage = () => {
       <Gap height="32px" width="10px" />
 
       <section className="block relative">
-        <img src={DashboardImage} alt="Background" className="w-full" />
+        <img
+          src={DashboardImage}
+          alt="Background"
+          className="w-full"
+          width="320"
+          height="211"
+        />
         <div className="flex flex-col justify-center items-center absolute inset-0">
           <Text variant="dash-title" text="Total" />
           <Text variant="dash-body" text={total ? `${total}x` : '0x'} />
