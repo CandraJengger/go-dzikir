@@ -18,7 +18,6 @@ import logoutUser from '../../context/actions/logoutUser';
 import { formatName } from '../../helpers/name';
 import { BANNER } from '../../constants/general';
 import editData from '../../context/actions/editData';
-import getUser from '../../context/actions/getUser';
 
 const HomePage = () => {
   const history = useHistory();

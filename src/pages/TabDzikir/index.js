@@ -20,7 +20,6 @@ import addData from '../../context/actions/addData';
 import { BANNER } from '../../constants/general';
 import logoutUser from '../../context/actions/logoutUser';
 import editData from '../../context/actions/editData';
-import getUser from '../../context/actions/getUser';
 
 const TabDzikirPage = ({
   match: {
