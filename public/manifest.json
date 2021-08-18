@@ -1,6 +1,6 @@
 {
-  "short_name": "Godzikir",
-  "name": "Godzikir",
+  "short_name": "Go-Dzikir",
+  "name": "Go-Dzikir",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/login",
   "display": "standalone",
   "theme_color": "#F3F6FA",
   "background_color": "#F3F6FA"
