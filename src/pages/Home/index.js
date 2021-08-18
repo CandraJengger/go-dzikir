@@ -85,7 +85,7 @@ const HomePage = () => {
       <section className="block relative">
         <img
           src={DashboardImage}
-          alt="Background"
+          alt="Dzikir Background"
           className="w-full"
           width="320"
           height="211"
