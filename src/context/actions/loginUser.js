@@ -2,13 +2,21 @@ import { LOGIN_LOADING, LOGIN_SUCCESS } from '../../constants/actionTypes';
 import { USER } from '../../constants/general';
 
 const generateUser = (username) => {
-  const data = localStorage.getItem(USER);
+  let currentTime = new Date().toISOString();
+  const data = JSON.parse(localStorage.getItem(USER));
 
   if (data && data.hasOwnProperty('name')) {
-    const user = {
-      ...data,
-      name: username,
-    };
+    const user =
+      data?.date.substring(0, 10) === currentTime.substring(0, 10)
+        ? {
+            ...data,
+            name: username,
+          }
+        : {
+            name: username,
+            date: new Date(),
+            data: [],
+          };
 
     return user;
   } else {

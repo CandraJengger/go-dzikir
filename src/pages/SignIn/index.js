@@ -13,6 +13,8 @@ const SignInPage = () => {
   const [name, setName] = useState('');
   const { authDispatch } = useContext(GlobalContext);
 
+  const [isMobile, setIsMobile] = useState(false);
+
   const start = () => {
     if (name !== '') {
       loginUser(name)(authDispatch)(() => history.replace('/'));
@@ -21,9 +23,15 @@ const SignInPage = () => {
 
   useEffect(() => {
     sessionStorage.removeItem(BANNER);
+
+    if (window.innerWidth > 512) {
+      setIsMobile(false);
+    } else {
+      setIsMobile(true);
+    }
   }, []);
 
-  return (
+  return isMobile ? (
     <PlainLayout className="flex flex-col justify-end">
       <div className=" h-full flex flex-col justify-center items-center">
         <div style={{ maxWidth: '186px' }}>
@@ -46,6 +54,15 @@ const SignInPage = () => {
         />
         <Gap height="35px" width="20px" />
         <Button text="Masuk" onClick={start} />
+      </div>
+    </PlainLayout>
+  ) : (
+    <PlainLayout className="flex flex-col justify-center items-center">
+      <div className=" w-64 text-center">
+        <Text variant="superTitle" text="OOPS !!" />
+        <Gap height="18px" width="10px" />
+        <Text text="Kelihatannya antum sedang menggunakan perangkat Desktop atau Tablet ya :).." />
+        <Text text="Agar dapat menggunakan web apps ini, tolong antum buka melalui perangkat mobile. Syukron ^_^" />
       </div>
     </PlainLayout>
   );

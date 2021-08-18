@@ -20,7 +20,7 @@ const List = ({ data = [], category = 'all' }) => {
         newData.map(({ id, dzikir, time, count }) => (
           <ListItem
             as="li"
-            title={`${dzikir} ${time.toLocaleTimeString()}`}
+            title={`${dzikir} ${new Date(time).toLocaleTimeString()}`}
             label={`${count}x`}
             key={id}
           />

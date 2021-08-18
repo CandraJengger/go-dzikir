@@ -10,10 +10,19 @@
   html {
     scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-background;
+  }
 }
 
 @layer components {
   .plain-layout {
-    @apply p-4 pb-6 bg-background min-h-screen relative;
+    @apply p-4 pb-6 bg-background min-h-screen relative mx-auto;
+    max-width: 512px;
+  }
+
+  .modal-custom {
+    max-width: 400px;
   }
 }

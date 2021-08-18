@@ -6,10 +6,10 @@ const Modal = ({ children, open, onToggle, style }) => {
 
   return (
     <div
-      className={`fixed inset-0 flex ${isOpen} justify-center items-center`}
+      className={`fixed inset-0 flex ${isOpen} justify-center items-center `}
       style={style}
     >
-      <div className="w-5/6 md:w-1/3 px-4 py-5 bg-background rounded-2xl z-10">
+      <div className="w-5/6 md:w-1/3 px-4 py-5 bg-background rounded-2xl z-10 modal-custom">
         {children || <Text variant="text-dark" text="Modal" />}
       </div>
 

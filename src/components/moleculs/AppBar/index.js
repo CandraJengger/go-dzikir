@@ -29,7 +29,7 @@ const AppBar = ({ name = 'JD', withBackIcon, onBack, onClickImage }) => {
         </button>
       )}
       <span
-        className="w-8 h-8 flex justify-center items-center text-sm bg-secondary text-background rounded-full"
+        className="w-8 h-8 flex justify-center items-center text-sm bg-secondary text-background rounded-full cursor-pointer"
         onClick={onClickImage}
       >
         {alias.toUpperCase()}
