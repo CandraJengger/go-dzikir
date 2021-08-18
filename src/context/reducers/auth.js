@@ -2,6 +2,7 @@ import {
   ADD_DZIKIR,
   CLEAR_AUTH_STATE,
   DELETE_USER,
+  EDIT_DZIKIR,
   GET_USER,
   LOGIN_FAIL,
   LOGIN_LOADING,
@@ -51,6 +52,7 @@ const auth = (state, { type, payload }) => {
       };
 
     case ADD_DZIKIR:
+    case EDIT_DZIKIR:
     case GET_USER:
       return {
         ...state,

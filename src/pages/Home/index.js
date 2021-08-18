@@ -17,6 +17,8 @@ import { GlobalContext } from '../../context/Provider';
 import logoutUser from '../../context/actions/logoutUser';
 import { formatName } from '../../helpers/name';
 import { BANNER } from '../../constants/general';
+import editData from '../../context/actions/editData';
+import getUser from '../../context/actions/getUser';
 
 const HomePage = () => {
   const history = useHistory();
@@ -25,14 +27,19 @@ const HomePage = () => {
     authDispatch,
   } = useContext(GlobalContext);
 
-  const [openModalUsername, setOpenModalUsername] = useState(false);
   const [openModalRecent, setOpenModalRecent] = useState(false);
   const [openModalWelcome, setOpenModalWelcome] = useState(false);
+  const [openModalUsername, setOpenModalUsername] = useState(false);
   const [userName, setUserName] = useState(data?.name);
+  const [total, setTotal] = useState(0);
 
-  const handleToggleModalUsername = () =>
+  const handleToggleModalUsername = () => {
+    editData(data, { key: 'name', value: userName })(authDispatch);
     setOpenModalUsername(!openModalUsername);
+  };
+
   const handleToggleModalRecent = () => setOpenModalRecent(!openModalRecent);
+
   const handleModalWelcome = () => {
     setOpenModalWelcome(false);
     sessionStorage.setItem(BANNER, true);
@@ -54,26 +61,33 @@ const HomePage = () => {
     } else {
       setOpenModalWelcome(false);
     }
-  }, []);
+
+    const totalOfCategories =
+      data?.data.length > 0
+        ? data?.data.reduce((acc, curr) => ({ count: acc.count + curr.count }))
+        : 0;
+
+    setTotal(totalOfCategories.count);
+  }, [data?.data]);
 
   return (
     <PlainLayout>
       <AppBar
-        name={userName}
+        name={data?.name || 'Fulan'}
         onClickImage={() => {
           handleToggleModalUsername();
         }}
       />
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
-      <Text as="h2" variant="title" text={formatName(userName)} />
+      <Text as="h2" variant="title" text={formatName(data?.name || 'Fulan')} />
       <Gap height="32px" width="10px" />
 
       <section className="block relative">
         <img src={DashboardImage} alt="Background" className="w-full" />
         <div className="flex flex-col justify-center items-center absolute inset-0">
           <Text variant="dash-title" text="Total" />
-          <Text variant="dash-body" text="1000x" />
+          <Text variant="dash-body" text={total ? `${total}x` : '0x'} />
           <Text variant="dash-caption" text="dzikir anda hari ini" />
         </div>
       </section>
@@ -92,7 +106,11 @@ const HomePage = () => {
         </div>
         <Gap height="18px" width="10px" />
 
-        <ListItem title="Istighfar" label="33x" variant="rounded" />
+        <ListItem
+          title={data?.data[data?.data.length - 1]?.dzikir || 'Belum ada'}
+          label={`${data?.data[data?.data.length - 1]?.count || '0'}x`}
+          variant="rounded"
+        />
       </section>
 
       <Gap height="42px" width="10px" />

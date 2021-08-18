@@ -19,6 +19,8 @@ import { nanoid } from 'nanoid';
 import addData from '../../context/actions/addData';
 import { BANNER } from '../../constants/general';
 import logoutUser from '../../context/actions/logoutUser';
+import editData from '../../context/actions/editData';
+import getUser from '../../context/actions/getUser';
 
 const TabDzikirPage = ({
   match: {
@@ -38,8 +40,10 @@ const TabDzikirPage = ({
   const [openModalUsername, setOpenModalUsername] = useState(false);
   const [userName, setUserName] = useState(data?.name);
 
-  const handleToggleModalUsername = () =>
+  const handleToggleModalUsername = () => {
+    editData(data, { key: 'name', value: userName })(authDispatch);
     setOpenModalUsername(!openModalUsername);
+  };
 
   const handleOpenTabCount = () => {
     setOpen(!open);
@@ -105,7 +109,7 @@ const TabDzikirPage = ({
   return (
     <PlainLayout>
       <AppBar
-        name={userName}
+        name={data?.name || 'Fulan'}
         onClickImage={() => {
           handleToggleModalUsername();
         }}

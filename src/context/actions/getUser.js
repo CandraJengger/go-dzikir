@@ -1,9 +1,9 @@
-import { GET_USER, LOGIN_LOADING } from '../../constants/actionTypes';
+import { GET_USER, USER_LOADING } from '../../constants/actionTypes';
 import { USER } from '../../constants/general';
 
 const getUser = () => (dispatch) => {
   dispatch({
-    type: LOGIN_LOADING,
+    type: USER_LOADING,
   });
 
   const user = localStorage.getItem(USER);
