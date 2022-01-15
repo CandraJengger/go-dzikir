@@ -1,11 +1,11 @@
-import { LOGIN_LOADING, LOGIN_SUCCESS } from '../../constants/actionTypes';
-import { USER } from '../../constants/general';
+import { LOGIN_LOADING, LOGIN_SUCCESS } from "../../constants/index";
+import { USER } from "../../../constants/general";
 
 const generateUser = (username) => {
   let currentTime = new Date().toISOString();
   const data = JSON.parse(localStorage.getItem(USER));
 
-  if (data && data.hasOwnProperty('name')) {
+  if (data && data.hasOwnProperty("name")) {
     const user =
       data?.date.substring(0, 10) === currentTime.substring(0, 10)
         ? {
@@ -30,7 +30,7 @@ const generateUser = (username) => {
   }
 };
 
-const loginUser = (username) => (dispatch) => (onSuccess) => {
+const loginUser = (username, onSuccess) => (dispatch) => {
   dispatch({
     type: LOGIN_LOADING,
   });

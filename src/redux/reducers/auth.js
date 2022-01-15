@@ -9,9 +9,10 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_USER,
   USER_LOADING,
-} from '../../constants/actionTypes';
+} from "../constants";
+import initialAuthStates from "../initialStates/auth";
 
-const auth = (state, { type, payload }) => {
+const auth = (state = initialAuthStates, { type, payload }) => {
   switch (type) {
     case USER_LOADING:
     case LOGIN_LOADING:

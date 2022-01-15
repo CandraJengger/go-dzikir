@@ -1,5 +1,5 @@
-import { USER_LOADING, EDIT_DZIKIR } from '../../constants/actionTypes';
-import { USER } from '../../constants/general';
+import { USER_LOADING, EDIT_DZIKIR } from "../../constants/index";
+import { USER } from "../../../constants/general";
 
 const editData =
   (user, { key, value }) =>

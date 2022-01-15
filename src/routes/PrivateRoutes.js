@@ -1,11 +1,8 @@
-import React, { useContext } from 'react';
-import { GlobalContext } from '../context/Provider';
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { Route, Redirect } from "react-router-dom";
 
-function PrivateRoute({ children, ...rest }) {
-  const {
-    authState: { isLoggedIn },
-  } = useContext(GlobalContext);
+function PrivateRoute({ auth: { isLoggedIn }, children, ...rest }) {
   return (
     <Route
       {...rest}
@@ -15,7 +12,7 @@ function PrivateRoute({ children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: "/login",
               state: { from: location },
             }}
           />
@@ -25,4 +22,10 @@ function PrivateRoute({ children, ...rest }) {
   );
 }
 
-export default PrivateRoute;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(PrivateRoute);

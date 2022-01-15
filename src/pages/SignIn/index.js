@@ -1,23 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Button, Gap, Input, Text } from '../../components/atoms';
-import { PlainLayout } from '../../components/organisms';
-import HijabVector from '../../assets/images/hijab.png';
-import loginUser from '../../context/actions/loginUser';
-import { GlobalContext } from '../../context/Provider';
-import { BANNER } from '../../constants/general';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { Button, Gap, Input, Text } from "../../components/atoms";
+import { PlainLayout } from "../../components/organisms";
+import HijabVector from "../../assets/images/hijab.png";
+import { BANNER } from "../../constants/general";
+import { loginUser } from "../../redux/actions/auth";
+import { connect } from "react-redux";
 
-const SignInPage = () => {
+const SignInPage = ({ login }) => {
   const history = useHistory();
 
-  const [name, setName] = useState('');
-  const { authDispatch } = useContext(GlobalContext);
+  const [name, setName] = useState("");
 
   const [isMobile, setIsMobile] = useState(false);
 
   const start = () => {
-    if (name !== '') {
-      loginUser(name)(authDispatch)(() => history.replace('/'));
+    if (name !== "") {
+      login(name, () => history.replace("/"));
     }
   };
 
@@ -34,7 +33,7 @@ const SignInPage = () => {
   return isMobile ? (
     <PlainLayout className="flex flex-col justify-end">
       <div className=" h-full flex flex-col justify-center items-center">
-        <div style={{ maxWidth: '186px' }}>
+        <div style={{ maxWidth: "186px" }}>
           <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
         </div>
         <div className="text-center">
@@ -68,4 +67,10 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (username, callback) => dispatch(loginUser(username, callback)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignInPage);

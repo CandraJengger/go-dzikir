@@ -1,6 +1,6 @@
-import { LOGIN_LOADING, LOGOUT_USER } from '../../constants/actionTypes';
+import { LOGIN_LOADING, LOGOUT_USER } from "../../constants/index";
 
-const logoutUser = () => (dispatch) => (onSuccess) => {
+const logoutUser = (onSuccess) => (dispatch) => {
   dispatch({
     type: LOGIN_LOADING,
   });
