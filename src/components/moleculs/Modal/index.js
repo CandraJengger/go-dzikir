@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text } from '../../atoms';
+import {Text} from '../../atoms';
+import PropTypes from 'prop-types';
 
-const Modal = ({ children, open, onToggle, style }) => {
+const Modal = ({children, open, onToggle, style}) => {
   const isOpen = open ? 'visible' : 'hidden';
 
   return (
@@ -19,6 +20,13 @@ const Modal = ({ children, open, onToggle, style }) => {
       ></span>
     </div>
   );
+};
+
+Modal.propTypes = {
+  children: PropTypes.node,
+  open: PropTypes.bool,
+  onToggle: PropTypes.any,
+  style: PropTypes.any
 };
 
 export default Modal;

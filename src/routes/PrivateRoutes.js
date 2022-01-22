@@ -1,19 +1,20 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Route, Redirect } from "react-router-dom";
+import React from 'react';
+import {connect} from 'react-redux';
+import {Route, Redirect} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function PrivateRoute({ auth: { isLoggedIn }, children, ...rest }) {
+function PrivateRoute({auth: {isLoggedIn}, children, ...rest}) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
+      render={({location}) =>
         isLoggedIn ? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
-              state: { from: location },
+              pathname: '/login',
+              state: {from: location}
             }}
           />
         )
@@ -22,9 +23,14 @@ function PrivateRoute({ auth: { isLoggedIn }, children, ...rest }) {
   );
 }
 
+PrivateRoute.propTypes = {
+  auth: PropTypes.any,
+  children: PropTypes.node
+};
+
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
+    auth: state.auth
   };
 };
 

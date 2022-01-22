@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Button, Gap, Input, Text } from "../../components/atoms";
-import { PlainLayout } from "../../components/organisms";
-import HijabVector from "../../assets/images/hijab.png";
-import { BANNER } from "../../constants/general";
-import { loginUser } from "../../redux/actions/auth";
-import { connect } from "react-redux";
+import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
+import {Button, Gap, Input, Text} from '../../components/atoms';
+import {PlainLayout} from '../../components/organisms';
+import HijabVector from '../../assets/images/hijab.png';
+import {BANNER} from '../../constants/general';
+import {loginUser} from '../../redux/actions/auth';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-const SignInPage = ({ login }) => {
+const SignInPage = ({login}) => {
   const history = useHistory();
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   const [isMobile, setIsMobile] = useState(false);
 
   const start = () => {
-    if (name !== "") {
-      login(name, () => history.replace("/"));
+    if (name !== '') {
+      login(name, () => history.replace('/'));
     }
   };
 
@@ -33,7 +34,7 @@ const SignInPage = ({ login }) => {
   return isMobile ? (
     <PlainLayout className="flex flex-col justify-end">
       <div className=" h-full flex flex-col justify-center items-center">
-        <div style={{ maxWidth: "186px" }}>
+        <div style={{maxWidth: '186px'}}>
           <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
         </div>
         <div className="text-center">
@@ -67,9 +68,13 @@ const SignInPage = ({ login }) => {
   );
 };
 
+SignInPage.propTypes = {
+  login: PropTypes.func
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (username, callback) => dispatch(loginUser(username, callback)),
+    login: (username, callback) => dispatch(loginUser(username, callback))
   };
 };
 

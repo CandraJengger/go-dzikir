@@ -1,7 +1,8 @@
 import React from 'react';
-import { Gap, Text } from '../../atoms';
+import {Gap, Text} from '../../atoms';
+import PropTypes from 'prop-types';
 
-const TabCount = ({ open = false, count, onTab }) => {
+const TabCount = ({open = false, count, onTab}) => {
   const isOpen = open ? 'bottom-0' : '-bottom-full';
 
   return (
@@ -14,6 +15,12 @@ const TabCount = ({ open = false, count, onTab }) => {
       <Text text={count} variant="h0" />
     </div>
   );
+};
+
+TabCount.propTypes = {
+  open: PropTypes.bool,
+  count: PropTypes.any,
+  onTab: PropTypes.any
 };
 
 export default TabCount;

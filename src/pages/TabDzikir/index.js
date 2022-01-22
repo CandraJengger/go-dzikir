@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { withRouter } from "react-router";
+import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
+import {withRouter} from 'react-router';
 import {
   AppBar,
   Button,
@@ -11,22 +11,23 @@ import {
   Modal,
   PlainLayout,
   TabCount,
-  Text,
-} from "../../components";
-import dataDzkir from "../../data";
-import { nanoid } from "nanoid";
-import { BANNER } from "../../constants/general";
-import { addData, editData, logoutUser } from "../../redux/actions/auth";
-import { connect } from "react-redux";
+  Text
+} from '../../components';
+import dataDzkir from '../../data';
+import {nanoid} from 'nanoid';
+import {BANNER} from '../../constants/general';
+import {addData, editData, logoutUser} from '../../redux/actions/auth';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 const TabDzikirPage = ({
-  auth: { data },
+  auth: {data},
   logout,
   addDzikir,
   editDzikir,
   match: {
-    params: { id },
-  },
+    params: {id}
+  }
 }) => {
   const history = useHistory();
 
@@ -38,7 +39,7 @@ const TabDzikirPage = ({
   const [userName, setUserName] = useState(data?.name);
 
   const handleToggleModalUsername = () => {
-    editDzikir(data, { key: "name", value: userName });
+    editDzikir(data, {key: 'name', value: userName});
     setOpenModalUsername(!openModalUsername);
   };
 
@@ -48,7 +49,7 @@ const TabDzikirPage = ({
   const handleChangeUsername = (e) => setUserName(e.target.value);
 
   const onLogout = () => {
-    logout(() => history.replace("/login"));
+    logout(() => history.replace('/login'));
     sessionStorage.removeItem(BANNER);
   };
 
@@ -61,7 +62,7 @@ const TabDzikirPage = ({
           id: nanoid(),
           dzikir: lafadz?.header,
           time: new Date(),
-          count,
+          count
         };
 
         addDzikir(data, dzikir);
@@ -74,7 +75,7 @@ const TabDzikirPage = ({
 
       const totalOfCategories =
         newData.length > 0
-          ? newData.reduce((acc, curr) => ({ count: acc.count + curr.count }))
+          ? newData.reduce((acc, curr) => ({count: acc.count + curr.count}))
           : 0;
 
       setTotal(totalOfCategories.count);
@@ -94,7 +95,7 @@ const TabDzikirPage = ({
 
     const totalOfCategories =
       newData.length > 0
-        ? newData.reduce((acc, curr) => ({ count: acc.count + curr.count }))
+        ? newData.reduce((acc, curr) => ({count: acc.count + curr.count}))
         : 0;
 
     setTotal(totalOfCategories.count);
@@ -106,12 +107,12 @@ const TabDzikirPage = ({
   return (
     <PlainLayout>
       <AppBar
-        name={data?.name || "Fulan"}
+        name={data?.name || 'Fulan'}
         onClickImage={() => {
           handleToggleModalUsername();
         }}
         withBackIcon
-        onBack={() => history.push("/")}
+        onBack={() => history.push('/')}
       />
 
       <section onClick={handleCloseTabCount}>
@@ -144,7 +145,7 @@ const TabDzikirPage = ({
         <Gap height="18px" width="20px" />
         <ListItem
           title={lafadz.header}
-          label={total ? `${total}x` : "0x"}
+          label={total ? `${total}x` : '0x'}
           variant="rounded"
         />
       </section>
@@ -172,9 +173,17 @@ const TabDzikirPage = ({
   );
 };
 
+TabDzikirPage.propTypes = {
+  auth: PropTypes.any,
+  logout: PropTypes.func,
+  addDzikir: PropTypes.func,
+  editDzikir: PropTypes.func,
+  match: PropTypes.any
+};
+
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
+    auth: state.auth
   };
 };
 
@@ -182,7 +191,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     editDzikir: (user, data) => dispatch(editData(user, data)),
     logout: (callback) => dispatch(logoutUser(callback)),
-    addDzikir: (user, dzikir) => dispatch(addData(user, dzikir)),
+    addDzikir: (user, dzikir) => dispatch(addData(user, dzikir))
   };
 };
 

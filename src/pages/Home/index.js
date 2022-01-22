@@ -17,6 +17,7 @@ import {formatName} from '../../helpers/name';
 import {BANNER} from '../../constants/general';
 import {editData, logoutUser} from '../../redux/actions/auth';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 const HomePage = ({auth: {data}, editDzikir, logout}) => {
   const history = useHistory();
@@ -205,6 +206,12 @@ const HomePage = ({auth: {data}, editDzikir, logout}) => {
       </Modal>
     </PlainLayout>
   );
+};
+
+HomePage.propTypes = {
+  auth: PropTypes.any,
+  editDzikir: PropTypes.func,
+  logout: PropTypes.func
 };
 
 const mapStateToProps = (state) => {

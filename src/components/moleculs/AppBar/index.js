@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 import ArrowBack from '../../../assets/images/arrow_back.svg';
 
-const AppBar = ({ name = 'JD', withBackIcon, onBack, onClickImage }) => {
+const AppBar = ({name = 'JD', withBackIcon, onBack, onClickImage}) => {
   const [alias, setAlias] = useState('');
 
   useEffect(() => {
@@ -36,6 +37,13 @@ const AppBar = ({ name = 'JD', withBackIcon, onBack, onClickImage }) => {
       </span>
     </div>
   );
+};
+
+AppBar.propTypes = {
+  name: PropTypes.string,
+  withBackIcon: PropTypes.bool,
+  onBack: PropTypes.any,
+  onClickImage: PropTypes.any
 };
 
 export default AppBar;
