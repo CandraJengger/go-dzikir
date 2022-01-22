@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import {
   AppBar,
   Button,
@@ -9,16 +9,16 @@ import {
   ListItem,
   Modal,
   PlainLayout,
-  Text,
-} from "../../components";
-import DashboardImage from "../../assets/images/dashboard.png";
-import HijabVector from "../../assets/images/hijab.png";
-import { formatName } from "../../helpers/name";
-import { BANNER } from "../../constants/general";
-import { editData, logoutUser } from "../../redux/actions/auth";
-import { connect } from "react-redux";
+  Text
+} from '../../components';
+import DashboardImage from '../../assets/images/dashboard.png';
+import HijabVector from '../../assets/images/hijab.png';
+import {formatName} from '../../helpers/name';
+import {BANNER} from '../../constants/general';
+import {editData, logoutUser} from '../../redux/actions/auth';
+import {connect} from 'react-redux';
 
-const HomePage = ({ auth: { data }, editDzikir, logout }) => {
+const HomePage = ({auth: {data}, editDzikir, logout}) => {
   const history = useHistory();
 
   const [openModalRecent, setOpenModalRecent] = useState(false);
@@ -28,7 +28,7 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
   const [total, setTotal] = useState(0);
 
   const handleToggleModalUsername = () => {
-    editDzikir(data, { key: "name", value: userName });
+    editDzikir(data, {key: 'name', value: userName});
     setOpenModalUsername(!openModalUsername);
   };
 
@@ -42,7 +42,7 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
   const handleChangeUsername = (e) => setUserName(e.target.value);
 
   const onLogout = () => {
-    logout(() => history.replace("/login"));
+    logout(() => history.replace('/login'));
     sessionStorage.removeItem(BANNER);
   };
 
@@ -58,7 +58,7 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
 
     const totalOfCategories =
       data?.data.length > 0
-        ? data?.data.reduce((acc, curr) => ({ count: acc.count + curr.count }))
+        ? data?.data.reduce((acc, curr) => ({count: acc.count + curr.count}))
         : 0;
 
     setTotal(totalOfCategories.count);
@@ -67,14 +67,14 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
   return (
     <PlainLayout>
       <AppBar
-        name={data?.name || "Fulan"}
+        name={data?.name || 'Fulan'}
         onClickImage={() => {
           handleToggleModalUsername();
         }}
       />
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
-      <Text as="h2" variant="title" text={formatName(data?.name || "Fulan")} />
+      <Text as="h2" variant="title" text={formatName(data?.name || 'Fulan')} />
       <Gap height="32px" width="10px" />
 
       <section className="block relative">
@@ -87,7 +87,7 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
         />
         <div className="flex flex-col justify-center items-center absolute inset-0">
           <Text variant="dash-title" text="Total" />
-          <Text variant="dash-body" text={total ? `${total}x` : "0x"} />
+          <Text variant="dash-body" text={total ? `${total}x` : '0x'} />
           <Text variant="dash-caption" text="dzikir anda hari ini" />
         </div>
       </section>
@@ -107,8 +107,8 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
         <Gap height="18px" width="10px" />
 
         <ListItem
-          title={data?.data[data?.data.length - 1]?.dzikir || "Belum ada"}
-          label={`${data?.data[data?.data.length - 1]?.count || "0"}x`}
+          title={data?.data[data?.data.length - 1]?.dzikir || 'Belum ada'}
+          label={`${data?.data[data?.data.length - 1]?.count || '0'}x`}
           variant="rounded"
         />
       </section>
@@ -123,42 +123,42 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
             <Button
               variant="secondary"
               text="Istighfar"
-              onClick={() => history.push("/tab-dzikir/1")}
+              onClick={() => history.push('/tab-dzikir/1')}
             />
           </div>
           <div className="col-start-5 col-end-7">
             <Button
               variant="secondary"
               text="Tahmid"
-              onClick={() => history.push("/tab-dzikir/2")}
+              onClick={() => history.push('/tab-dzikir/2')}
             />
           </div>
           <div className="col-start-1 col-end-3">
             <Button
               variant="secondary"
               text="Takbir"
-              onClick={() => history.push("/tab-dzikir/5")}
+              onClick={() => history.push('/tab-dzikir/5')}
             />
           </div>
           <div className="col-start-3 col-end-5">
             <Button
               variant="secondary"
               text="Tahlil"
-              onClick={() => history.push("/tab-dzikir/4")}
+              onClick={() => history.push('/tab-dzikir/4')}
             />
           </div>
           <div className="col-start-5 col-end-7">
             <Button
               variant="secondary"
               text="Tasbih"
-              onClick={() => history.push("/tab-dzikir/3")}
+              onClick={() => history.push('/tab-dzikir/3')}
             />
           </div>
           <div className="col-start-1 col-end-6">
             <Button
               variant="secondary"
               text="Subhanallah walhamdulillah"
-              onClick={() => history.push("/tab-dzikir/6")}
+              onClick={() => history.push('/tab-dzikir/6')}
             />
           </div>
         </div>
@@ -185,7 +185,7 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
       {/* Welcome */}
       <Modal onToggle={handleModalWelcome} open={openModalWelcome}>
         <div className="flex flex-col items-center text-center py-6">
-          <div className="mx-auto mb-4" style={{ maxWidth: "186px" }}>
+          <div className="mx-auto mb-4" style={{maxWidth: '186px'}}>
             <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
           </div>
           <Gap height="16px" width="20px" />
@@ -209,14 +209,14 @@ const HomePage = ({ auth: { data }, editDzikir, logout }) => {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
+    auth: state.auth
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     editDzikir: (user, data) => dispatch(editData(user, data)),
-    logout: (callback) => dispatch(logoutUser(callback)),
+    logout: (callback) => dispatch(logoutUser(callback))
   };
 };
 
