@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({
-  type = 'text',
-  placeholder = 'Masukkan Nama',
-  value,
-  onChange
-}) => {
+function Input({ type = 'text', placeholder = 'Masukkan Nama', value, onChange }) {
   return (
     <input
       type={type}
@@ -16,13 +11,13 @@ const Input = ({
       onChange={onChange}
     />
   );
-};
+}
 
 Input.propTypes = {
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  value: PropTypes.any,
-  onChange: PropTypes.any
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Input;

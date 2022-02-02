@@ -1,5 +1,5 @@
-import { GET_USER, USER_LOADING } from "../../constants/index";
-import { USER } from "../../../constants/general";
+import { GET_USER, USER_LOADING } from '../../constants/index';
+import { USER } from '../../../constants/general';
 
 const getUser = () => (dispatch) => {
   dispatch({

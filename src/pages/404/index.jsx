@@ -1,7 +1,7 @@
 import React from 'react';
 import { Gap, PlainLayout, Text } from '../../components';
 
-const NoMatch = () => {
+function NoMatch() {
   return (
     <PlainLayout className="flex flex-col justify-center items-center">
       <div className=" w-64 text-center">
@@ -11,6 +11,6 @@ const NoMatch = () => {
       </div>
     </PlainLayout>
   );
-};
+}
 
 export default NoMatch;

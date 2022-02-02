@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PlainLayout = ({children, className}) => {
+function PlainLayout({ children, className }) {
   return <div className={`plain-layout ${className}`}>{children}</div>;
+}
+
+PlainLayout.defaultProps = {
+  className: '',
 };
 
 PlainLayout.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
 
 export default PlainLayout;

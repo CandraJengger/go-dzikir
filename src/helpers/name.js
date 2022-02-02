@@ -7,4 +7,4 @@ const formatName = (name) => {
   return name;
 };
 
-export {formatName};
+export { formatName };

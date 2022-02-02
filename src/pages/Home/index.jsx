@@ -1,5 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   AppBar,
   Button,
@@ -9,17 +11,15 @@ import {
   ListItem,
   Modal,
   PlainLayout,
-  Text
+  Text,
 } from '../../components';
 import DashboardImage from '../../assets/images/dashboard.png';
 import HijabVector from '../../assets/images/hijab.png';
-import {formatName} from '../../helpers/name';
-import {BANNER} from '../../constants/general';
-import {editData, logoutUser} from '../../redux/actions/auth';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import { formatName } from '../../helpers/name';
+import { BANNER } from '../../constants/general';
+import { editData, logoutUser } from '../../redux/actions/auth';
 
-const HomePage = ({auth: {data}, editDzikir, logout}) => {
+function HomePage({ auth: { data }, editDzikir, logout }) {
   const history = useHistory();
 
   const [openModalRecent, setOpenModalRecent] = useState(false);
@@ -29,7 +29,7 @@ const HomePage = ({auth: {data}, editDzikir, logout}) => {
   const [total, setTotal] = useState(0);
 
   const handleToggleModalUsername = () => {
-    editDzikir(data, {key: 'name', value: userName});
+    editDzikir(data, { key: 'name', value: userName });
     setOpenModalUsername(!openModalUsername);
   };
 
@@ -59,7 +59,7 @@ const HomePage = ({auth: {data}, editDzikir, logout}) => {
 
     const totalOfCategories =
       data?.data.length > 0
-        ? data?.data.reduce((acc, curr) => ({count: acc.count + curr.count}))
+        ? data?.data.reduce((acc, curr) => ({ count: acc.count + curr.count }))
         : 0;
 
     setTotal(totalOfCategories.count);
@@ -98,18 +98,13 @@ const HomePage = ({auth: {data}, editDzikir, logout}) => {
       <section>
         <div className="flex justify-between items-center">
           <Text as="h3" variant="label" text="Yang baru anda baca" />
-          <Text
-            as="a"
-            variant="tiny"
-            text="Lihat semua"
-            onClick={handleToggleModalRecent}
-          />
+          <Text as="a" variant="tiny" text="Lihat semua" onClick={handleToggleModalRecent} />
         </div>
         <Gap height="18px" width="10px" />
 
         <ListItem
-          title={data?.data[data?.data.length - 1]?.dzikir || 'Belum ada'}
-          label={`${data?.data[data?.data.length - 1]?.count || '0'}x`}
+          title={data?.data[data.data.length - 1]?.dzikir || 'Belum ada'}
+          label={`${data?.data[data.data.length - 1]?.count || '0'}x`}
           variant="rounded"
         />
       </section>
@@ -186,7 +181,7 @@ const HomePage = ({auth: {data}, editDzikir, logout}) => {
       {/* Welcome */}
       <Modal onToggle={handleModalWelcome} open={openModalWelcome}>
         <div className="flex flex-col items-center text-center py-6">
-          <div className="mx-auto mb-4" style={{maxWidth: '186px'}}>
+          <div className="mx-auto mb-4" style={{ maxWidth: '186px' }}>
             <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
           </div>
           <Gap height="16px" width="20px" />
@@ -206,25 +201,21 @@ const HomePage = ({auth: {data}, editDzikir, logout}) => {
       </Modal>
     </PlainLayout>
   );
-};
+}
 
 HomePage.propTypes = {
   auth: PropTypes.any,
   editDzikir: PropTypes.func,
-  logout: PropTypes.func
+  logout: PropTypes.func,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth
-  };
-};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    editDzikir: (user, data) => dispatch(editData(user, data)),
-    logout: (callback) => dispatch(logoutUser(callback))
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  editDzikir: (user, data) => dispatch(editData(user, data)),
+  logout: (callback) => dispatch(logoutUser(callback)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

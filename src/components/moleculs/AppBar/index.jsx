@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ArrowBack from '../../../assets/images/arrow_back.svg';
 
-const AppBar = ({name = 'JD', withBackIcon, onBack, onClickImage}) => {
+function AppBar({ name = 'JD', withBackIcon, onBack, onClickImage }) {
   const [alias, setAlias] = useState('');
 
   useEffect(() => {
     const nameSplit = name.split(' ');
     if (nameSplit.length > 2) {
-      setAlias(nameSplit[0]?.substring(0, 1) + nameSplit[2]?.substring(0, 1));
+      setAlias(nameSplit[0].substring(0, 1) + nameSplit[2].substring(0, 1));
     } else if (nameSplit.length === 2) {
-      setAlias(nameSplit[0]?.substring(0, 1) + nameSplit[1]?.substring(0, 1));
+      setAlias(nameSplit[0].substring(0, 1) + nameSplit[1].substring(0, 1));
     } else {
-      setAlias(nameSplit[0]?.substring(0, 1));
+      setAlias(nameSplit[0].substring(0, 1));
     }
   }, [name]);
 
@@ -25,25 +25,30 @@ const AppBar = ({name = 'JD', withBackIcon, onBack, onClickImage}) => {
       }
     >
       {withBackIcon && (
-        <button onClick={onBack}>
+        <button type="button" onClick={onBack}>
           <img src={ArrowBack} alt="Back Button" />
         </button>
       )}
-      <span
+      <button
+        type="button"
         className="w-8 h-8 flex justify-center items-center text-sm bg-secondary text-background rounded-full cursor-pointer"
         onClick={onClickImage}
       >
         {alias.toUpperCase()}
-      </span>
+      </button>
     </div>
   );
+}
+
+AppBar.defaultProps = {
+  withBackIcon: true,
 };
 
 AppBar.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   withBackIcon: PropTypes.bool,
-  onBack: PropTypes.any,
-  onClickImage: PropTypes.any
+  onBack: PropTypes.func.isRequired,
+  onClickImage: PropTypes.func.isRequired,
 };
 
 export default AppBar;

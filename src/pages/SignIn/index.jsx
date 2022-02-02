@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import {Button, Gap, Input, Text} from '../../components/atoms';
-import {PlainLayout} from '../../components/organisms';
-import HijabVector from '../../assets/images/hijab.png';
-import {BANNER} from '../../constants/general';
-import {loginUser} from '../../redux/actions/auth';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button, Gap, Input, Text } from '../../components/atoms';
+import { PlainLayout } from '../../components/organisms';
+import HijabVector from '../../assets/images/hijab.png';
+import { BANNER } from '../../constants/general';
+import { loginUser } from '../../redux/actions/auth';
 
-const SignInPage = ({login}) => {
+function SignInPage({ login }) {
   const history = useHistory();
 
   const [name, setName] = useState('');
@@ -34,7 +34,7 @@ const SignInPage = ({login}) => {
   return isMobile ? (
     <PlainLayout className="flex flex-col justify-end">
       <div className=" h-full flex flex-col justify-center items-center">
-        <div style={{maxWidth: '186px'}}>
+        <div style={{ maxWidth: '186px' }}>
           <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
         </div>
         <div className="text-center">
@@ -66,16 +66,14 @@ const SignInPage = ({login}) => {
       </div>
     </PlainLayout>
   );
-};
+}
 
 SignInPage.propTypes = {
-  login: PropTypes.func
+  login: PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (username, callback) => dispatch(loginUser(username, callback))
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  login: (username, callback) => dispatch(loginUser(username, callback)),
+});
 
 export default connect(null, mapDispatchToProps)(SignInPage);

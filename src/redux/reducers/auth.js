@@ -9,9 +9,10 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_USER,
   USER_LOADING,
-} from "../constants";
-import initialAuthStates from "../initialStates/auth";
+} from '../constants';
+import initialAuthStates from '../initialStates/auth';
 
+// eslint-disable-next-line default-param-last
 const auth = (state = initialAuthStates, { type, payload }) => {
   switch (type) {
     case USER_LOADING:

@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import {withRouter} from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { nanoid } from 'nanoid';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   AppBar,
   Button,
@@ -11,25 +13,15 @@ import {
   Modal,
   PlainLayout,
   TabCount,
-  Text
+  Text,
 } from '../../components';
 import dataDzkir from '../../data';
-import {nanoid} from 'nanoid';
-import {BANNER} from '../../constants/general';
-import {addData, editData, logoutUser} from '../../redux/actions/auth';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import { BANNER } from '../../constants/general';
+import { addData, editData, logoutUser } from '../../redux/actions/auth';
 
-const TabDzikirPage = ({
-  auth: {data},
-  logout,
-  addDzikir,
-  editDzikir,
-  match: {
-    params: {id}
-  }
-}) => {
+function TabDzikirPage({ auth: { data }, logout, addDzikir, editDzikir }) {
   const history = useHistory();
+  const { id } = useParams();
 
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(0);
@@ -39,7 +31,7 @@ const TabDzikirPage = ({
   const [userName, setUserName] = useState(data?.name);
 
   const handleToggleModalUsername = () => {
-    editDzikir(data, {key: 'name', value: userName});
+    editDzikir(data, { key: 'name', value: userName });
     setOpenModalUsername(!openModalUsername);
   };
 
@@ -62,21 +54,17 @@ const TabDzikirPage = ({
           id: nanoid(),
           dzikir: lafadz?.header,
           time: new Date(),
-          count
+          count,
         };
 
         addDzikir(data, dzikir);
       }
 
       const newData =
-        data?.data.length > 0
-          ? data?.data.filter((item) => item.dzikir === lafadz?.header)
-          : [];
+        data?.data.length > 0 ? data?.data.filter((item) => item.dzikir === lafadz?.header) : [];
 
       const totalOfCategories =
-        newData.length > 0
-          ? newData.reduce((acc, curr) => ({count: acc.count + curr.count}))
-          : 0;
+        newData.length > 0 ? newData.reduce((acc, curr) => ({ count: acc.count + curr.count })) : 0;
 
       setTotal(totalOfCategories.count);
       setOpen(!open);
@@ -85,18 +73,14 @@ const TabDzikirPage = ({
   const handleIncrement = () => setCount((prevCount) => prevCount + 1);
 
   useEffect(() => {
-    const filterDzikir = dataDzkir.filter((item) => parseInt(id) === item.id);
+    const filterDzikir = dataDzkir.filter((item) => parseInt(id, 10) === item.id);
     setLafadz(filterDzikir[0]);
 
     const newData =
-      data?.data.length > 0
-        ? data?.data.filter((item) => item.dzikir === lafadz?.header)
-        : [];
+      data?.data.length > 0 ? data?.data.filter((item) => item.dzikir === lafadz?.header) : [];
 
     const totalOfCategories =
-      newData.length > 0
-        ? newData.reduce((acc, curr) => ({count: acc.count + curr.count}))
-        : 0;
+      newData.length > 0 ? newData.reduce((acc, curr) => ({ count: acc.count + curr.count })) : 0;
 
     setTotal(totalOfCategories.count);
 
@@ -115,19 +99,21 @@ const TabDzikirPage = ({
         onBack={() => history.push('/')}
       />
 
-      <section onClick={handleCloseTabCount}>
-        <Text variant="label" text="Lafadz" />
-        <Gap height="18px" width="20px" />
-        <div className="text-right mb-4">
-          <Text variant="text-arabic" text={lafadz?.arabic} />
-          <Gap height="8px" width="20px" />
-          <Text variant="text-dark" text={lafadz?.arabic_read} />
-        </div>
-        <Text variant="text-grey" text={lafadz?.translation} />
+      <section>
+        <button type="button" className="w-full text-left" onClick={handleCloseTabCount}>
+          <Text variant="label" text="Lafadz" />
+          <Gap height="18px" width="20px" />
+          <div className="text-right mb-4">
+            <Text variant="text-arabic" text={lafadz?.arabic} />
+            <Gap height="8px" width="20px" />
+            <Text variant="text-dark" text={lafadz?.arabic_read} />
+          </div>
+          <Text variant="text-grey" text={lafadz?.translation} />
 
-        <Gap height="18px" width="20px" />
+          <Gap height="18px" width="20px" />
 
-        <Button text="Mulai" onClick={handleOpenTabCount} />
+          <Button text="Mulai" onClick={handleOpenTabCount} />
+        </button>
       </section>
 
       <Gap height="42px" width="20px" />
@@ -143,11 +129,7 @@ const TabDzikirPage = ({
       <section>
         <Text variant="label" text="Total" />
         <Gap height="18px" width="20px" />
-        <ListItem
-          title={lafadz.header}
-          label={total ? `${total}x` : '0x'}
-          variant="rounded"
-        />
+        <ListItem title={lafadz.header} label={total ? `${total}x` : '0x'} variant="rounded" />
       </section>
 
       <TabCount open={open} count={count} onTab={handleIncrement} />
@@ -171,30 +153,23 @@ const TabDzikirPage = ({
       </Modal>
     </PlainLayout>
   );
-};
+}
 
 TabDzikirPage.propTypes = {
   auth: PropTypes.any,
   logout: PropTypes.func,
   addDzikir: PropTypes.func,
   editDzikir: PropTypes.func,
-  match: PropTypes.any
 };
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth
-  };
-};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    editDzikir: (user, data) => dispatch(editData(user, data)),
-    logout: (callback) => dispatch(logoutUser(callback)),
-    addDzikir: (user, dzikir) => dispatch(addData(user, dzikir))
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  editDzikir: (user, data) => dispatch(editData(user, data)),
+  logout: (callback) => dispatch(logoutUser(callback)),
+  addDzikir: (user, dzikir) => dispatch(addData(user, dzikir)),
+});
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(TabDzikirPage)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(TabDzikirPage);

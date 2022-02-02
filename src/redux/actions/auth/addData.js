@@ -1,5 +1,5 @@
-import { USER_LOADING, ADD_DZIKIR } from "../../constants/index";
-import { USER } from "../../../constants/general";
+import { USER_LOADING, ADD_DZIKIR } from '../../constants/index';
+import { USER } from '../../../constants/general';
 
 const addData = (user, dzikir) => (dispatch) => {
   user.data.push(dzikir);
