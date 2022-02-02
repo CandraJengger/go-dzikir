@@ -76,15 +76,15 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
       <Text as="h2" variant="title" text={formatName(data?.name || 'Fulan')} />
-      <Gap height="32px" width="10px" />
+      <Gap height="20px" width="10px" />
 
-      <section className="block relative">
+      <section className="block relative h-44">
         <img
           src={DashboardImage}
           alt="Dzikir Background"
-          className="w-full"
+          className="w-full h-full object-center"
           width="320"
-          height="211"
+          height="150"
         />
         <div className="flex flex-col justify-center items-center absolute inset-0">
           <Text variant="dash-title" text="Total" />
@@ -96,11 +96,11 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
       <Gap height="28px" width="10px" />
 
       <section>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-end">
           <Text as="h3" variant="label" text="Yang baru anda baca" />
           <Text as="a" variant="tiny" text="Lihat semua" onClick={handleToggleModalRecent} />
         </div>
-        <Gap height="18px" width="10px" />
+        <Gap height="16px" width="10px" />
 
         <ListItem
           title={data?.data[data.data.length - 1]?.dzikir || 'Belum ada'}
@@ -109,12 +109,12 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
         />
       </section>
 
-      <Gap height="42px" width="10px" />
+      <Gap height="28px" width="10px" />
 
       <section>
         <Text as="h3" variant="label" text="Kumpulan Dzikir" />
-        <Gap height="18px" width="16px" />
-        <div className="grid grid-cols-6 grid-rows-3 gap-3">
+        <Gap height="16px" width="16px" />
+        <div className="grid grid-cols-6 grid-rows-3 gap-2">
           <div className="col-start-1 col-end-5">
             <Button
               variant="secondary"
@@ -171,6 +171,9 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
             onChange={handleChangeUsername}
           />
         </div>
+
+        <Gap height="16px" width="10px" />
+
         <div>
           <Text variant="label" text="Apakah anda ingin keluar ?" />
           <Gap height="16px" width="10px" />

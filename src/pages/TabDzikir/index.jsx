@@ -102,7 +102,7 @@ function TabDzikirPage({ auth: { data }, logout, addDzikir, editDzikir }) {
       <section>
         <button type="button" className="w-full text-left" onClick={handleCloseTabCount}>
           <Text variant="label" text="Lafadz" />
-          <Gap height="18px" width="20px" />
+          <Gap height="16px" width="20px" />
           <div className="text-right mb-4">
             <Text variant="text-arabic" text={lafadz?.arabic} />
             <Gap height="8px" width="20px" />
@@ -128,7 +128,7 @@ function TabDzikirPage({ auth: { data }, logout, addDzikir, editDzikir }) {
 
       <section>
         <Text variant="label" text="Total" />
-        <Gap height="18px" width="20px" />
+        <Gap height="16px" width="20px" />
         <ListItem title={lafadz.header} label={total ? `${total}x` : '0x'} variant="rounded" />
       </section>
 
@@ -145,6 +145,7 @@ function TabDzikirPage({ auth: { data }, logout, addDzikir, editDzikir }) {
             onChange={handleChangeUsername}
           />
         </div>
+        <Gap height="8px" width="10px" />
         <div>
           <Text variant="label" text="Apakah anda ingin keluar ?" />
           <Gap height="16px" width="10px" />

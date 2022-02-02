@@ -26,7 +26,7 @@ function AppBar({ name = 'JD', withBackIcon, onBack, onClickImage }) {
     >
       {withBackIcon && (
         <button type="button" onClick={onBack}>
-          <img src={ArrowBack} alt="Back Button" />
+          <img src={ArrowBack} alt="Back Button" className="w-8 h-8 -ml-1" />
         </button>
       )}
       <button
