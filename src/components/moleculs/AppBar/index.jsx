@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import ArrowBack from '../../../assets/images/arrow_back.svg';
+import { ICArrowBack } from '../../../assets/images';
 
 function AppBar({ name = 'JD', withBackIcon, onBack, onClickImage }) {
   const [alias, setAlias] = useState('');
@@ -26,7 +26,7 @@ function AppBar({ name = 'JD', withBackIcon, onBack, onClickImage }) {
     >
       {withBackIcon && (
         <button type="button" onClick={onBack}>
-          <img src={ArrowBack} alt="Back Button" className="w-8 h-8 -ml-1" />
+          <img src={ICArrowBack} alt="Back Button" className="w-8 h-8 -ml-1" />
         </button>
       )}
       <button

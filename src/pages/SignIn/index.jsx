@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Gap, Input, Text } from '../../components/atoms';
 import { PlainLayout } from '../../components/organisms';
-import HijabVector from '../../assets/images/hijab.png';
 import { BANNER } from '../../constants/general';
 import { loginUser } from '../../redux/actions/auth';
+import { ILHijab } from '../../assets/images';
 
 function SignInPage({ login }) {
   const history = useHistory();
@@ -35,7 +35,7 @@ function SignInPage({ login }) {
     <PlainLayout className="flex flex-col justify-end py-10">
       <div className=" h-full flex flex-col justify-center items-center">
         <div style={{ maxWidth: '186px' }}>
-          <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
+          <img src={ILHijab} alt="Ilustrasi jangan lupa dzikir" />
         </div>
         <div className="text-center">
           <Gap height="16px" width="20px" />

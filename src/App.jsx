@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NoMatch from './pages/404';
 import HomePage from './pages/Home';
+import Quran from './pages/Quran';
 import SignInPage from './pages/SignIn';
 import TabDzikirPage from './pages/TabDzikir';
 import PrivateRoute from './routes/PrivateRoutes';
@@ -14,6 +15,9 @@ function App() {
       </Route>
       <PrivateRoute path="/" exact>
         <HomePage />
+      </PrivateRoute>
+      <PrivateRoute path="/quran">
+        <Quran />
       </PrivateRoute>
       <PrivateRoute path="/tab-dzikir/:id">
         <TabDzikirPage />

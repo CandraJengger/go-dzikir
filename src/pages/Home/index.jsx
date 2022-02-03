@@ -11,13 +11,13 @@ import {
   ListItem,
   Modal,
   PlainLayout,
+  Tabs,
   Text,
 } from '../../components';
-import DashboardImage from '../../assets/images/dashboard.png';
-import HijabVector from '../../assets/images/hijab.png';
 import { formatName } from '../../helpers/name';
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
+import { ILDashboard, ILHijab } from '../../assets/images';
 
 function HomePage({ auth: { data }, editDzikir, logout }) {
   const history = useHistory();
@@ -72,7 +72,10 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
         onClickImage={() => {
           handleToggleModalUsername();
         }}
+        withBackIcon={false}
       />
+
+      <Tabs />
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
       <Text as="h2" variant="title" text={formatName(data?.name || 'Fulan')} />
@@ -80,7 +83,7 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
 
       <section className="block relative h-44">
         <img
-          src={DashboardImage}
+          src={ILDashboard}
           alt="Dzikir Background"
           className="w-full h-full object-center"
           width="320"
@@ -160,6 +163,8 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
         </div>
       </section>
 
+      <Gap height="60px" width="10px" />
+
       {/* Update Menu */}
       <Modal onToggle={handleToggleModalUsername} open={openModalUsername}>
         <div className="mb-4">
@@ -185,7 +190,7 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
       <Modal onToggle={handleModalWelcome} open={openModalWelcome}>
         <div className="flex flex-col items-center text-center py-6">
           <div className="mx-auto mb-4" style={{ maxWidth: '186px' }}>
-            <img src={HijabVector} alt="Ilustrasi jangan lupa dzikir" />
+            <img src={ILHijab} alt="Ilustrasi jangan lupa dzikir" />
           </div>
           <Gap height="16px" width="20px" />
 
