@@ -81,14 +81,8 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
       <Text as="h2" variant="title" text={formatName(data?.name || 'Fulan')} />
       <Gap height="20px" width="10px" />
 
-      <section className="block relative h-44">
-        <img
-          src={ILDashboard}
-          alt="Dzikir Background"
-          className="w-full h-full object-center"
-          width="320"
-          height="150"
-        />
+      <section className="block relative h-48">
+        <img src={ILDashboard} alt="Dzikir Background" className="w-full h-full object-center" />
         <div className="flex flex-col justify-center items-center absolute inset-0">
           <Text variant="dash-title" text="Total" />
           <Text variant="dash-body" text={total ? `${total}x` : '0x'} />
@@ -118,14 +112,14 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
         <Text as="h3" variant="label" text="Kumpulan Dzikir" />
         <Gap height="16px" width="16px" />
         <div className="grid grid-cols-6 grid-rows-3 gap-2">
-          <div className="col-start-1 col-end-5">
+          <div className="col-start-1 col-end-4">
             <Button
               variant="secondary"
               text="Istighfar"
               onClick={() => history.push('/tab-dzikir/1')}
             />
           </div>
-          <div className="col-start-5 col-end-7">
+          <div className="col-start-4 col-end-7">
             <Button
               variant="secondary"
               text="Tahmid"
@@ -153,7 +147,7 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
               onClick={() => history.push('/tab-dzikir/3')}
             />
           </div>
-          <div className="col-start-1 col-end-6">
+          <div className="col-start-1 col-end-7">
             <Button
               variant="secondary"
               text="Subhanallah walhamdulillah"
