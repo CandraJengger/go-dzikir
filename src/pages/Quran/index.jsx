@@ -12,6 +12,7 @@ import {
   BottomNavigator,
   Text,
   SurahItem,
+  JuzItem,
 } from '../../components';
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
@@ -57,6 +58,9 @@ function Quran({ auth: { data }, editDzikir, logout }) {
       <section className="flex flex-col">
         {[1, 2, 3].map((item) => (
           <SurahItem key={item} />
+        ))}
+        {[1, 2, 3].map((item) => (
+          <JuzItem key={item} />
         ))}
       </section>
 

@@ -5,6 +5,7 @@ const variants = {
   title: 'text-secondary font-medium text-lg',
   label: 'text-secondary font-semibold text-sm',
   'text-grey': 'text-label text-sm font-normal',
+  'text-grey-2': 'text-label text-xs font-normal',
   'text-dark': 'text-secondary text-base',
   'text-arabic': 'text-secondary text-xl font-amiri',
   'text-arabic-2': 'text-primary text-2xl font-light font-amiri',

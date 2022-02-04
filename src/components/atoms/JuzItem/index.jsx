@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Text from '../Text';
 
-function SurahItem({ onClick, number, surah, translatedName, verses, nameArabic }) {
+function JuzItem({ onClick, number, juz, verses }) {
   return (
     <button
       type="button"
@@ -14,31 +14,26 @@ function SurahItem({ onClick, number, surah, translatedName, verses, nameArabic 
           {number}
         </span>
         <div className="text-left">
-          <p className=" font-semibold">{surah}</p>
-          <Text variant="text-grey-2" text={`${translatedName} (${verses}) ayat`} />
+          <p className=" font-semibold">Juz {juz}</p>
+          <Text variant="text-grey-2" text={`${verses} ayat`} />
         </div>
       </div>
-      <Text variant="text-arabic-2" text={nameArabic} />
     </button>
   );
 }
 
-SurahItem.defaultProps = {
+JuzItem.defaultProps = {
   onClick: () => {},
   number: '1',
-  surah: 'Al-Fatihah',
-  translatedName: 'Pembuka',
-  nameArabic: 'الفاتحة',
-  verses: '7',
+  juz: '1',
+  verses: '148',
 };
 
-SurahItem.propTypes = {
+JuzItem.propTypes = {
   onClick: PropTypes.func,
   number: PropTypes.string,
-  surah: PropTypes.string,
-  translatedName: PropTypes.string,
+  juz: PropTypes.string,
   verses: PropTypes.string,
-  nameArabic: PropTypes.string,
 };
 
-export default SurahItem;
+export default JuzItem;

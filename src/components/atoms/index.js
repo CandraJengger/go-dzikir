@@ -6,5 +6,6 @@ import Label from './Label';
 import ListItem from './ListItem';
 import TabItem from './TabItem';
 import SurahItem from './SurahItem';
+import JuzItem from './JuzItem';
 
-export { Button, Text, Gap, Input, Label, ListItem, TabItem, SurahItem };
+export { Button, Text, Gap, Input, Label, ListItem, TabItem, SurahItem, JuzItem };
