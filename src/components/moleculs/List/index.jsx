@@ -12,7 +12,7 @@ function List({ data = [], category = 'all' }) {
             <ListItem
               as="li"
               title={new Date(time).toLocaleTimeString()}
-              label={`${count}x`}
+              label={`${count || '0'}x`}
               key={id}
             />
           ))
@@ -22,11 +22,11 @@ function List({ data = [], category = 'all' }) {
             <ListItem
               as="li"
               title={`${dzikir} ${new Date(time).toLocaleTimeString()}`}
-              label={`${count}x`}
+              label={`${count || '0'}x`}
               key={id}
             />
           ))}
-      {newData.length === 0 && <ListItem as="li" title="Belum ada" />}
+      {newData.length === 0 && <ListItem as="li" title="Belum ada" label="0x" />}
     </ul>
   );
 }

@@ -42,12 +42,13 @@ function AppBar({ name = 'JD', withBackIcon, onBack, onClickImage }) {
 
 AppBar.defaultProps = {
   withBackIcon: true,
+  onBack: () => {},
 };
 
 AppBar.propTypes = {
   name: PropTypes.string.isRequired,
   withBackIcon: PropTypes.bool,
-  onBack: PropTypes.func.isRequired,
+  onBack: PropTypes.func,
   onClickImage: PropTypes.func.isRequired,
 };
 

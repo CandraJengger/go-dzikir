@@ -13,8 +13,12 @@ function Input({ type = 'text', placeholder = 'Masukkan Nama', value, onChange }
   );
 }
 
+Input.defaultProps = {
+  type: 'text',
+};
+
 Input.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

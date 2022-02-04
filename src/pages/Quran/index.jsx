@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { AppBar, Button, Gap, Input, Modal, PlainLayout, Tabs, Text } from '../../components';
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
+import { BASE_URL } from '../../config';
 
 function Quran({ auth: { data }, editDzikir, logout }) {
   const history = useHistory();
@@ -29,6 +30,7 @@ function Quran({ auth: { data }, editDzikir, logout }) {
     window.scrollTo(0, 0);
   }, []);
 
+  console.log('cok', BASE_URL);
   return (
     <PlainLayout>
       <AppBar
