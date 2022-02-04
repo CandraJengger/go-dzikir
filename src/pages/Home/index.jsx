@@ -11,7 +11,7 @@ import {
   ListItem,
   Modal,
   PlainLayout,
-  Tabs,
+  BottomNavigator,
   Text,
 } from '../../components';
 import { formatName } from '../../helpers/name';
@@ -75,7 +75,7 @@ function HomePage({ auth: { data }, editDzikir, logout }) {
         withBackIcon={false}
       />
 
-      <Tabs />
+      <BottomNavigator />
 
       <Text as="h1" variant="text-grey" text="Assalamu'alaikum," />
       <Text as="h2" variant="title" text={formatName(data?.name || 'Fulan')} />

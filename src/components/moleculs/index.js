@@ -2,6 +2,6 @@ import TabCount from './TabCount';
 import List from './List';
 import AppBar from './AppBar';
 import Modal from './Modal';
-import Tabs from './Tabs';
+import BottomNavigator from './BottomNavigator';
 
-export { TabCount, List, AppBar, Modal, Tabs };
+export { TabCount, List, AppBar, Modal, BottomNavigator };

@@ -10,6 +10,9 @@ module.exports = {
         label: '#9EAEBE',
         accent: '#B7C8E3',
       },
+      fontFamily: {
+        amiri: ['Amiri', 'serif'],
+      },
     },
   },
   variants: {

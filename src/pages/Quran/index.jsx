@@ -2,7 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { AppBar, Button, Gap, Input, Modal, PlainLayout, Tabs, Text } from '../../components';
+import {
+  AppBar,
+  Button,
+  Gap,
+  Input,
+  Modal,
+  PlainLayout,
+  BottomNavigator,
+  Text,
+  SurahItem,
+} from '../../components';
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
 import { BASE_URL } from '../../config';
@@ -41,10 +51,13 @@ function Quran({ auth: { data }, editDzikir, logout }) {
         withBackIcon={false}
       />
 
-      <Tabs />
+      <BottomNavigator />
 
-      <section className="w-full h-full justify-center items-center">
-        <p>Al-Quran Page</p>
+      <Text as="h2" variant="title" text="Al-Quran" />
+      <section className="flex flex-col">
+        {[1, 2, 3].map((item) => (
+          <SurahItem key={item} />
+        ))}
       </section>
 
       {/* Update Menu */}
