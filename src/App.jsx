@@ -6,6 +6,7 @@ import Quran from './pages/Quran';
 import SignInPage from './pages/SignIn';
 import TabDzikirPage from './pages/TabDzikir';
 import PrivateRoute from './routes/PrivateRoutes';
+import ReadingQuranPage from './pages/ReadingQuran';
 
 function App() {
   return (
@@ -16,9 +17,15 @@ function App() {
       <PrivateRoute path="/" exact>
         <HomePage />
       </PrivateRoute>
-      <PrivateRoute path="/quran">
-        <Quran />
-      </PrivateRoute>
+      <PrivateRoute
+        path="/quran"
+        render={({ match: { url } }) => (
+          <>
+            <Route path={`${url}/`} component={Quran} exact />
+            <Route path={`${url}/:id`} component={ReadingQuranPage} />
+          </>
+        )}
+      />
       <PrivateRoute path="/tab-dzikir/:id">
         <TabDzikirPage />
       </PrivateRoute>

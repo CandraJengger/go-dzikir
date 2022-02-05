@@ -3,21 +3,23 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function PrivateRoute({ auth: { isLoggedIn }, children, ...rest }) {
+function PrivateRoute({ auth: { isLoggedIn }, children, render, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        isLoggedIn ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location },
-            }}
-          />
-        )
+      render={
+        render ||
+        (({ location }) =>
+          isLoggedIn ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/login',
+                state: { from: location },
+              }}
+            />
+          ))
       }
     />
   );
@@ -26,6 +28,7 @@ function PrivateRoute({ auth: { isLoggedIn }, children, ...rest }) {
 PrivateRoute.propTypes = {
   auth: PropTypes.any,
   children: PropTypes.node,
+  render: PropTypes.any,
 };
 
 const mapStateToProps = (state) => ({
