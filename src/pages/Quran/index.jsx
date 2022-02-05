@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {
   AppBar,
   Button,
@@ -54,15 +55,34 @@ function Quran({ auth: { data }, editDzikir, logout }) {
 
       <BottomNavigator />
 
-      <Text as="h2" variant="title" text="Al-Quran" />
-      <section className="flex flex-col">
-        {[1, 2, 3].map((item) => (
-          <SurahItem key={item} />
-        ))}
-        {[1, 2, 3].map((item) => (
-          <JuzItem key={item} />
-        ))}
-      </section>
+      <Text as="h1" variant="title" text="Al-Quran" />
+      <Gap height="20px" width="10px" />
+      <Tabs>
+        <TabList className="rounded-lg max-w-max mx-auto mb-4">
+          <Tab className="px-5 py-3 inline-flex justify-center items-center text-sm font-medium">
+            Tampilkan Surat
+          </Tab>
+          <Tab className="px-5 py-3 inline-flex justify-center items-center text-sm font-medium">
+            Tampilkan Juz
+          </Tab>
+        </TabList>
+
+        <TabPanel>
+          <section className="flex flex-col">
+            {[1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 15].map((item) => (
+              <SurahItem key={item} />
+            ))}
+            <Gap height="60px" width="10px" />
+          </section>
+        </TabPanel>
+        <TabPanel>
+          <section className="flex flex-col">
+            {[1, 2, 3].map((item) => (
+              <JuzItem key={item} />
+            ))}
+          </section>
+        </TabPanel>
+      </Tabs>
 
       {/* Update Menu */}
       <Modal onToggle={handleToggleModalUsername} open={openModalUsername}>

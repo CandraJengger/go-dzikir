@@ -25,4 +25,8 @@
   .modal-custom {
     max-width: 400px;
   }
+
+  .react-tabs__tab--selected {
+    @apply rounded-lg;
+  }
 }
