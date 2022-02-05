@@ -15,7 +15,7 @@ function SurahItem({ onClick, number, surah, translatedName, verses, nameArabic 
         </span>
         <div className="text-left">
           <p className=" font-semibold">{surah}</p>
-          <Text variant="text-grey-2" text={`${translatedName} (${verses}) ayat`} />
+          <Text variant="text-grey-2" text={`${translatedName} (${verses} ayat)`} />
         </div>
       </div>
       <Text variant="text-arabic-2" text={nameArabic} />
