@@ -11,9 +11,12 @@ import {
   PlainLayout,
   BottomNavigator,
   Text,
+  VersesItem,
+  Loading,
 } from '../../components';
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
+import { ILBackground2 } from '../../assets/images';
 
 function ReadingQuran({ auth: { data }, editDzikir, logout }) {
   const history = useHistory();
@@ -42,39 +45,65 @@ function ReadingQuran({ auth: { data }, editDzikir, logout }) {
 
   return (
     <PlainLayout>
-      <AppBar
-        name={data?.name || 'Fulan'}
-        onClickImage={() => {
-          handleToggleModalUsername();
-        }}
-        withBackIcon
-        onBack={() => history.push('/quran/')}
-      />
-
-      <BottomNavigator />
-
-      <Text as="h1" variant="title" text="Al-Quran" />
-
-      {/* Update Menu */}
-      <Modal onToggle={handleToggleModalUsername} open={openModalUsername}>
-        <div className="mb-4">
-          <Text variant="label" text="Ubah nama" />
-          <Gap height="16px" width="10px" />
-          <Input
-            placeholder="Masukkan nama anda"
-            value={userName}
-            onChange={handleChangeUsername}
+      {true ? (
+        <Loading />
+      ) : (
+        <>
+          <AppBar
+            name={data?.name || 'Fulan'}
+            onClickImage={() => {
+              handleToggleModalUsername();
+            }}
+            withBackIcon
+            onBack={() => history.push('/quran/')}
           />
-        </div>
 
-        <Gap height="16px" width="10px" />
+          <BottomNavigator />
 
-        <div>
-          <Text variant="label" text="Apakah anda ingin keluar ?" />
-          <Gap height="16px" width="10px" />
-          <Button variant="secondary" text="Ya, keluar" onClick={onLogout} />
-        </div>
-      </Modal>
+          <div className="text-center bg-primary h-36 w-full rounded-3xl flex flex-col items-center overflow-hidden relative ">
+            <img
+              src={ILBackground2}
+              alt="Dzikir Background"
+              className="w-full h-full object-cover"
+            />
+            <div className=" absolute inset-0 flex flex-col justify-center py-2 px-20">
+              {/* <Text as="h1" variant="title" text="Al-Fatihah" /> */}
+              <p className="text-white text-xl font-medium">Al-Fatihah</p>
+              <p className="text-white text-sm font-normal">Pembukaan</p>
+              <div className=" absolute bottom-4 right-0 left-0 text-center">
+                <p className="text-white text-xs">Mekah - 7 ayat</p>
+              </div>
+            </div>
+          </div>
+          <Gap width="8px" height="40px" />
+          <section className=" flex flex-col">
+            {[1, 2, 3, 4, 5].map((item) => (
+              <VersesItem key={item} />
+            ))}
+          </section>
+
+          {/* Update Menu */}
+          <Modal onToggle={handleToggleModalUsername} open={openModalUsername}>
+            <div className="mb-4">
+              <Text variant="label" text="Ubah nama" />
+              <Gap height="16px" width="10px" />
+              <Input
+                placeholder="Masukkan nama anda"
+                value={userName}
+                onChange={handleChangeUsername}
+              />
+            </div>
+
+            <Gap height="16px" width="10px" />
+
+            <div>
+              <Text variant="label" text="Apakah anda ingin keluar ?" />
+              <Gap height="16px" width="10px" />
+              <Button variant="secondary" text="Ya, keluar" onClick={onLogout} />
+            </div>
+          </Modal>
+        </>
+      )}
     </PlainLayout>
   );
 }

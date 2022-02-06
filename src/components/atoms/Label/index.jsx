@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import variants from './label.variant';
 
-function Label({ text }) {
-  return <span className="text-background bg-primary py-1 px-2 rounded text-xs">{text}</span>;
+function Label({ text, variant }) {
+  const style = variants[variant];
+
+  return <span className={style}>{text}</span>;
 }
+
+Label.defaultProps = {
+  variant: 'primary',
+};
 
 Label.propTypes = {
   text: PropTypes.string.isRequired,
+  variant: PropTypes.string,
 };
 
 export default Label;

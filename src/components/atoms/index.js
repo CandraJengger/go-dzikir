@@ -7,5 +7,19 @@ import ListItem from './ListItem';
 import TabItem from './TabItem';
 import SurahItem from './SurahItem';
 import JuzItem from './JuzItem';
+import RoundButton from './RoundButton';
+import Loading from './Loading';
 
-export { Button, Text, Gap, Input, Label, ListItem, TabItem, SurahItem, JuzItem };
+export {
+  Button,
+  Text,
+  Gap,
+  Input,
+  Label,
+  ListItem,
+  TabItem,
+  SurahItem,
+  JuzItem,
+  RoundButton,
+  Loading,
+};
