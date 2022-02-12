@@ -7,6 +7,7 @@ import { rootReducer } from './reducers';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['quran'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -45,21 +45,20 @@ function ReadingQuran({ auth: { data }, editDzikir, logout }) {
 
   return (
     <PlainLayout>
-      {true ? (
+      <AppBar
+        name={data?.name || 'Fulan'}
+        onClickImage={() => {
+          handleToggleModalUsername();
+        }}
+        withBackIcon
+        onBack={() => history.push('/quran/')}
+      />
+
+      <BottomNavigator />
+      {false ? (
         <Loading />
       ) : (
         <>
-          <AppBar
-            name={data?.name || 'Fulan'}
-            onClickImage={() => {
-              handleToggleModalUsername();
-            }}
-            withBackIcon
-            onBack={() => history.push('/quran/')}
-          />
-
-          <BottomNavigator />
-
           <div className="text-center bg-primary h-36 w-full rounded-3xl flex flex-col items-center overflow-hidden relative ">
             <img
               src={ILBackground2}
@@ -81,29 +80,28 @@ function ReadingQuran({ auth: { data }, editDzikir, logout }) {
               <VersesItem key={item} />
             ))}
           </section>
-
-          {/* Update Menu */}
-          <Modal onToggle={handleToggleModalUsername} open={openModalUsername}>
-            <div className="mb-4">
-              <Text variant="label" text="Ubah nama" />
-              <Gap height="16px" width="10px" />
-              <Input
-                placeholder="Masukkan nama anda"
-                value={userName}
-                onChange={handleChangeUsername}
-              />
-            </div>
-
-            <Gap height="16px" width="10px" />
-
-            <div>
-              <Text variant="label" text="Apakah anda ingin keluar ?" />
-              <Gap height="16px" width="10px" />
-              <Button variant="secondary" text="Ya, keluar" onClick={onLogout} />
-            </div>
-          </Modal>
         </>
       )}
+      {/* Update Menu */}
+      <Modal onToggle={handleToggleModalUsername} open={openModalUsername}>
+        <div className="mb-4">
+          <Text variant="label" text="Ubah nama" />
+          <Gap height="16px" width="10px" />
+          <Input
+            placeholder="Masukkan nama anda"
+            value={userName}
+            onChange={handleChangeUsername}
+          />
+        </div>
+
+        <Gap height="16px" width="10px" />
+
+        <div>
+          <Text variant="label" text="Apakah anda ingin keluar ?" />
+          <Gap height="16px" width="10px" />
+          <Button variant="secondary" text="Ya, keluar" onClick={onLogout} />
+        </div>
+      </Modal>
     </PlainLayout>
   );
 }

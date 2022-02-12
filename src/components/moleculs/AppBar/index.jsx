@@ -20,18 +20,18 @@ function AppBar({ name = 'JD', withBackIcon, onBack, onClickImage }) {
     <div
       className={
         withBackIcon
-          ? 'flex justify-between items-center mb-7'
-          : 'flex justify-end items-center mb-7'
+          ? 'flex justify-between items-center mb-7 z-50'
+          : 'flex justify-end items-center mb-7 z-50'
       }
     >
       {withBackIcon && (
-        <button type="button" onClick={onBack}>
+        <button type="button" onClick={onBack} className="z-50">
           <img src={ICArrowBack} alt="Back Button" className="w-8 h-8 -ml-1" />
         </button>
       )}
       <button
         type="button"
-        className="w-8 h-8 flex justify-center items-center text-sm bg-secondary text-background rounded-full cursor-pointer"
+        className="w-8 h-8 flex justify-center items-center text-sm bg-secondary text-background rounded-full cursor-pointer z-50"
         onClick={onClickImage}
       >
         {alias.toUpperCase()}
