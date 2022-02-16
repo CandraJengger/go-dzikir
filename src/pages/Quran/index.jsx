@@ -15,10 +15,12 @@ import {
   SurahItem,
   JuzItem,
   Loading,
+  FloatingActionButton,
 } from '../../components';
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
 import { getJuz, getSurah } from '../../redux/actions/quran';
+import { ICArrowTop } from '../../assets/images';
 // import PrivateRoutes from '../../routes/PrivateRoutes';
 // import ReadingQuran from '../ReadingQuran';
 
@@ -34,6 +36,7 @@ function Quran({
 
   const [openModalUsername, setOpenModalUsername] = useState(false);
   const [userName, setUserName] = useState(data?.name);
+  const [showFAB, setShowFAB] = useState(false);
 
   const handleToggleModalUsername = () => {
     editDzikir(data, { key: 'name', value: userName });
@@ -47,16 +50,32 @@ function Quran({
     sessionStorage.removeItem(BANNER);
   };
 
-  const onClickSurahOrJuz = () => {
-    history.push('/quran/1');
+  const onClickSurahOrJuz = (id = 1, detail = {}) => {
+    history.push(`/quran/type?surah=${id}`, detail);
   };
 
+  const onScrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
+  const handleScroll = () => {
+    if (window.scrollY > 220) {
+      setShowFAB(true);
+    } else {
+      setShowFAB(false);
+    }
+  };
   useEffect(() => {
     // set window
     window.scrollTo(0, 0);
 
     getDataByJuz();
     getDataBySurah();
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -70,6 +89,12 @@ function Quran({
       />
 
       <BottomNavigator />
+      {showFAB && (
+        <FloatingActionButton
+          Icon={<img src={ICArrowTop} alt="Arrow top" />}
+          onClick={onScrollToTop}
+        />
+      )}
       {loading ? (
         <Loading />
       ) : (
@@ -96,7 +121,7 @@ function Quran({
                     nameArabic={item.name_arabic}
                     verses={item.verses_count}
                     translatedName={item.translated_name.name}
-                    onClick={onClickSurahOrJuz}
+                    onClick={() => onClickSurahOrJuz(item.id, item)}
                   />
                 ))}
                 <Gap height="60px" width="10px" />

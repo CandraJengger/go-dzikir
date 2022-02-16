@@ -9,6 +9,7 @@ import SurahItem from './SurahItem';
 import JuzItem from './JuzItem';
 import RoundButton from './RoundButton';
 import Loading from './Loading';
+import FloatingActionButton from './FloatingActionButton';
 
 export {
   Button,
@@ -22,4 +23,5 @@ export {
   JuzItem,
   RoundButton,
   Loading,
+  FloatingActionButton,
 };

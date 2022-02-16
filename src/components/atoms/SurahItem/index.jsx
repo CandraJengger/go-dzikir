@@ -34,10 +34,10 @@ SurahItem.defaultProps = {
 
 SurahItem.propTypes = {
   onClick: PropTypes.func,
-  number: PropTypes.string,
+  number: PropTypes.number,
   surah: PropTypes.string,
   translatedName: PropTypes.string,
-  verses: PropTypes.string,
+  verses: PropTypes.number,
   nameArabic: PropTypes.string,
 };
 

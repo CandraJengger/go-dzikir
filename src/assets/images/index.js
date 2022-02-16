@@ -8,6 +8,7 @@ import ICForward from './icons/ic_skip_forward.svg';
 import ICBack from './icons/ic_skip_back.svg';
 import ICMark from './icons/ic_mark.svg';
 import ICMarked from './icons/ic_marked.svg';
+import ICArrowTop from './icons/arrow_top.svg';
 
 // Illustration
 import ILDashboard from './illustrations/dashboard.png';
@@ -17,6 +18,7 @@ import ILBackground2 from './illustrations/background_2.png';
 export {
   ICHome,
   ICArrowBack,
+  ICArrowTop,
   ILDashboard,
   ILHijab,
   ICOpenBook,

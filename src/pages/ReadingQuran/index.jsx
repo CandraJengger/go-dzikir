@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   AppBar,
@@ -17,11 +17,17 @@ import {
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
 import { ILBackground2 } from '../../assets/images';
+import { getSurahById } from '../../redux/actions/quran';
 
-function ReadingQuran({ auth: { data }, editDzikir, logout }) {
+function ReadingQuran({
+  auth: { data },
+  editDzikir,
+  logout,
+  getSurah,
+  quran: { loading, currentReading },
+}) {
   const history = useHistory();
-  const { id } = useParams();
-  console.log(id);
+  const { state: surahDetail } = useLocation();
 
   const [openModalUsername, setOpenModalUsername] = useState(false);
   const [userName, setUserName] = useState(data?.name);
@@ -41,7 +47,12 @@ function ReadingQuran({ auth: { data }, editDzikir, logout }) {
   useEffect(() => {
     // set window
     window.scrollTo(0, 0);
+    if (surahDetail.id) {
+      getSurah(surahDetail.id);
+    }
   }, []);
+
+  console.log(currentReading, surahDetail);
 
   return (
     <PlainLayout>
@@ -55,7 +66,7 @@ function ReadingQuran({ auth: { data }, editDzikir, logout }) {
       />
 
       <BottomNavigator />
-      {false ? (
+      {loading ? (
         <Loading />
       ) : (
         <>
@@ -67,10 +78,14 @@ function ReadingQuran({ auth: { data }, editDzikir, logout }) {
             />
             <div className=" absolute inset-0 flex flex-col justify-center py-2 px-20">
               {/* <Text as="h1" variant="title" text="Al-Fatihah" /> */}
-              <p className="text-white text-xl font-medium">Al-Fatihah</p>
-              <p className="text-white text-sm font-normal">Pembukaan</p>
+              <p className="text-white text-xl font-medium">{surahDetail.name_simple || ''}</p>
+              <p className="text-white text-sm font-normal">
+                {surahDetail.translated_name.name || ''}
+              </p>
               <div className=" absolute bottom-4 right-0 left-0 text-center">
-                <p className="text-white text-xs">Mekah - 7 ayat</p>
+                <p className="text-white text-xs">
+                  {surahDetail.revelation_place || ''} - {surahDetail.verses_count} ayat
+                </p>
               </div>
             </div>
           </div>
@@ -110,15 +125,19 @@ ReadingQuran.propTypes = {
   auth: PropTypes.any,
   editDzikir: PropTypes.func,
   logout: PropTypes.func,
+  getSurah: PropTypes.func,
+  quran: PropTypes.any,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  quran: state.quran,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   editDzikir: (user, data) => dispatch(editData(user, data)),
   logout: (callback) => dispatch(logoutUser(callback)),
+  getSurah: (id) => dispatch(getSurahById(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReadingQuran);

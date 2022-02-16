@@ -31,9 +31,9 @@ JuzItem.defaultProps = {
 
 JuzItem.propTypes = {
   onClick: PropTypes.func,
-  number: PropTypes.string,
-  juz: PropTypes.string,
-  verses: PropTypes.string,
+  number: PropTypes.number,
+  juz: PropTypes.number,
+  verses: PropTypes.number,
 };
 
 export default JuzItem;
