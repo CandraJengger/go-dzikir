@@ -10,11 +10,11 @@ function SurahItem({ onClick, number, surah, translatedName, verses, nameArabic 
       onClick={onClick}
     >
       <div className="flex flex-row items-center pr-3">
-        <span className="bg-backgroound border-2 border-secondary text-secondary w-8 h-8 rounded-full flex justify-center items-center text-xs font-semibold mr-4 ">
+        <span className="font-roboto bg-backgroound border-2 border-secondary text-secondary w-8 h-8 rounded-full flex justify-center items-center text-xs font-semibold mr-4 ">
           {number}
         </span>
         <div className="text-left">
-          <p className=" text-base font-semibold">{surah}</p>
+          <p className=" text-base font-medium font-roboto">{surah}</p>
           <Text variant="text-grey-2" text={`${translatedName} (${verses} ayat)`} />
         </div>
       </div>

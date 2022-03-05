@@ -1,16 +1,41 @@
-import React from 'react';
-import { ICMark, ICPlay } from '../../../assets/images';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { ICMark, ICPause, ICPlay } from '../../../assets/images';
 import { Label, RoundButton, Gap, Text } from '../../atoms';
+import convertToArabicNumbers from '../../../helpers/convertToArabicNumbers';
 
-function VersesItem() {
+function VersesItem({ audioRef, audio, translation, numberOfAyahs, handlePlayPauseAudio }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const onClick = () => {
+    handlePlayPauseAudio();
+    if (isPlaying) {
+      setIsPlaying(false);
+      audioRef.current?.pause();
+    } else {
+      setIsPlaying(true);
+      audioRef.current?.play();
+    }
+  };
+
+  useEffect(() => {
+    audioRef.current?.addEventListener('ended', () => {
+      setIsPlaying(false);
+    });
+
+    return () => {
+      audioRef.current?.removeEventListener('ended', () => {});
+    };
+  });
+
   return (
     <div className=" mb-5 border-b-2 pb-4 flex flex-col">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <Label text="1:1" variant="secondary" />
+          <Label text={`${audio?.numberInSurah || 1}:${numberOfAyahs}`} variant="secondary" />
           <Gap width="8px" height="2px" />
-          <RoundButton>
-            <img src={ICPlay} alt="play" />
+          <RoundButton onClick={onClick}>
+            {isPlaying ? <img src={ICPause} alt="pause" /> : <img src={ICPlay} alt="play" />}
           </RoundButton>
         </div>
         <RoundButton variant="transparent">
@@ -19,18 +44,35 @@ function VersesItem() {
       </div>
       <Gap width="8px" height="30px" />
       <div>
-        <div className="text-right mb-4">
-          <Text text="بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ" variant="text-arabic" />
+        <div className="text-right mb-4 flex items-center justify-end">
+          <Text variant="text-arabic">
+            {audio?.text}
+            {'          '}
+            <Text
+              text={`( ${convertToArabicNumbers(audio?.numberInSurah || 1)} )`}
+              variant="text-arabic-0"
+              as="span"
+            />
+          </Text>
         </div>
         <Gap height="8px" width="20px" />
-        <Text variant="text-dark" text="Bismillaahir Rahmaanir Raheem" />
-        <Text
-          variant="text-grey"
-          text="Dengan menyebut nama Allah Yang Maha Pemurah lagi Maha Penyayang."
-        />
+        <Text variant="text-grey" text={translation?.text} />
       </div>
     </div>
   );
 }
+
+VersesItem.defaultProps = {
+  numberOfAyahs: 0,
+  translation: '',
+};
+
+VersesItem.propTypes = {
+  audio: PropTypes.any,
+  translation: PropTypes.any,
+  numberOfAyahs: PropTypes.number,
+  handlePlayPauseAudio: PropTypes.func,
+  audioRef: PropTypes.any,
+};
 
 export default VersesItem;

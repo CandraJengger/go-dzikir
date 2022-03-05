@@ -12,6 +12,7 @@ module.exports = {
       },
       fontFamily: {
         amiri: ['Amiri', 'serif'],
+        roboto: ['Roboto', 'sans-serif'],
       },
     },
   },

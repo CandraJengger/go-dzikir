@@ -103,10 +103,10 @@ function Quran({
           <Gap height="20px" width="10px" />
           <Tabs>
             <TabList className="rounded-lg max-w-max mx-auto mb-4">
-              <Tab className="px-5 py-3 inline-flex justify-center items-center text-sm font-medium">
+              <Tab className=" font-roboto px-5 py-3 inline-flex justify-center items-center text-sm font-medium">
                 Tampilkan Surat
               </Tab>
-              <Tab className="px-5 py-3 inline-flex justify-center items-center text-sm font-medium">
+              <Tab className=" font-roboto px-5 py-3 inline-flex justify-center items-center text-sm font-medium">
                 Tampilkan Juz
               </Tab>
             </TabList>

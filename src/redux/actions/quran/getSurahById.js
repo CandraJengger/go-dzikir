@@ -11,9 +11,7 @@ const getSurahById = (id) => (distpach) => {
     type: GET_SURAH_BY_ID_LOADING,
   });
   axios
-    .get(
-      `${BASE_URL}/surah/${id}/editions/en.transliteration,quran-uthmani,ar.alafasy,id.muntakhab,id.indonesian`
-    )
+    .get(`${BASE_URL}/surah/${id}/editions/ar.alafasy,id.indonesian`)
     .then((res) => {
       distpach({
         type: GET_SURAH_BY_ID_SUCCESS,

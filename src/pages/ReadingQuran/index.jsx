@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -13,11 +13,13 @@ import {
   Text,
   VersesItem,
   Loading,
+  FloatingActionButton,
 } from '../../components';
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
-import { ILBackground2 } from '../../assets/images';
+import { ICArrowTop, ILBackground2 } from '../../assets/images';
 import { getSurahById } from '../../redux/actions/quran';
+import groupingIntoPartsOfTheSurah from '../../helpers/groupingIntoPartsOfTheSurah';
 
 function ReadingQuran({
   auth: { data },
@@ -31,6 +33,11 @@ function ReadingQuran({
 
   const [openModalUsername, setOpenModalUsername] = useState(false);
   const [userName, setUserName] = useState(data?.name);
+  const [showFAB, setShowFAB] = useState(false);
+  const audioRef = useRef();
+
+  const { translations: translationsOfSurah, audios: audiosOfSurah } =
+    groupingIntoPartsOfTheSurah(currentReading);
 
   const handleToggleModalUsername = () => {
     editDzikir(data, { key: 'name', value: userName });
@@ -44,15 +51,35 @@ function ReadingQuran({
     sessionStorage.removeItem(BANNER);
   };
 
+  const handleScroll = () => {
+    if (window.scrollY > 220) {
+      setShowFAB(true);
+    } else {
+      setShowFAB(false);
+    }
+  };
+
+  const handlePlayPauseAudio = (index) => {
+    audioRef.current.src = audiosOfSurah[index].audio;
+  };
+
+  const onScrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   useEffect(() => {
     // set window
     window.scrollTo(0, 0);
     if (surahDetail.id) {
       getSurah(surahDetail.id);
     }
-  }, []);
 
-  console.log(currentReading, surahDetail);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <PlainLayout>
@@ -66,6 +93,14 @@ function ReadingQuran({
       />
 
       <BottomNavigator />
+      {showFAB && (
+        <FloatingActionButton
+          Icon={<img src={ICArrowTop} alt="Arrow top" />}
+          onClick={onScrollToTop}
+        />
+      )}
+
+      {audiosOfSurah[0] && <audio ref={audioRef} />}
       {loading ? (
         <Loading />
       ) : (
@@ -78,12 +113,14 @@ function ReadingQuran({
             />
             <div className=" absolute inset-0 flex flex-col justify-center py-2 px-20">
               {/* <Text as="h1" variant="title" text="Al-Fatihah" /> */}
-              <p className="text-white text-xl font-medium">{surahDetail.name_simple || ''}</p>
-              <p className="text-white text-sm font-normal">
+              <p className=" font-roboto text-white text-xl font-medium">
+                {surahDetail.name_simple || ''}
+              </p>
+              <p className=" font-roboto text-white text-sm font-normal">
                 {surahDetail.translated_name.name || ''}
               </p>
               <div className=" absolute bottom-4 right-0 left-0 text-center">
-                <p className="text-white text-xs">
+                <p className=" font-roboto text-white text-xs">
                   {surahDetail.revelation_place || ''} - {surahDetail.verses_count} ayat
                 </p>
               </div>
@@ -91,10 +128,20 @@ function ReadingQuran({
           </div>
           <Gap width="8px" height="40px" />
           <section className=" flex flex-col">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <VersesItem key={item} />
-            ))}
+            {audiosOfSurah.length > 0 &&
+              translationsOfSurah.length > 0 &&
+              audiosOfSurah?.map((item, index) => (
+                <VersesItem
+                  key={item.number}
+                  audio={item}
+                  handlePlayPauseAudio={() => handlePlayPauseAudio(index)}
+                  translation={translationsOfSurah[index]}
+                  numberOfAyahs={audiosOfSurah.length}
+                  audioRef={audioRef}
+                />
+              ))}
           </section>
+          <Gap width="8px" height="40px" />
         </>
       )}
       {/* Update Menu */}

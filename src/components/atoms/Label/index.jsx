@@ -5,7 +5,7 @@ import variants from './label.variant';
 function Label({ text, variant }) {
   const style = variants[variant];
 
-  return <span className={style}>{text}</span>;
+  return <span className={`font-roboto ${style}`}>{text}</span>;
 }
 
 Label.defaultProps = {
