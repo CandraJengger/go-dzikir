@@ -33,8 +33,15 @@ function VersesItem({ audioRef, audio, translation, numberOfAyahs, handlePlayPau
       setIsPlaying(false);
     });
 
+    audioRef.current?.addEventListener('playing', () => {
+      if (audioRef.current?.src !== audio?.audio) {
+        setIsPlaying(false);
+      }
+    });
+
     return () => {
       audioRef.current?.removeEventListener('ended', () => {});
+      audioRef.current?.removeEventListener('playing', () => {});
     };
   });
 
