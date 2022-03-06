@@ -138,10 +138,11 @@ function ReadingQuran({
                   translation={translationsOfSurah[index]}
                   numberOfAyahs={audiosOfSurah.length}
                   audioRef={audioRef}
+                  number={index}
                 />
               ))}
           </section>
-          <Gap width="8px" height="40px" />
+          <Gap width="8px" height="80px" />
         </>
       )}
       {/* Update Menu */}

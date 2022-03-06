@@ -66,9 +66,6 @@ function Quran({
     }
   };
   useEffect(() => {
-    // set window
-    window.scrollTo(0, 0);
-
     getDataByJuz();
     getDataBySurah();
     window.addEventListener('scroll', handleScroll);

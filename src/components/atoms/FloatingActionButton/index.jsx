@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function FloatingActionButton({ Icon, onClick }) {
   return (
     <button
-      className="fixed bottom-24 right-6 rounded-full w-10 h-10 flex justify-center items-center bg-white"
+      className="fixed bottom-20 right-6 rounded-full w-10 h-10 flex justify-center items-center bg-white"
       type="button"
       onClick={onClick}
     >

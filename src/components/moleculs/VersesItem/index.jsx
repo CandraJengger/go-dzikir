@@ -4,7 +4,17 @@ import { ICMark, ICPause, ICPlay } from '../../../assets/images';
 import { Label, RoundButton, Gap, Text } from '../../atoms';
 import convertToArabicNumbers from '../../../helpers/convertToArabicNumbers';
 
-function VersesItem({ audioRef, audio, translation, numberOfAyahs, handlePlayPauseAudio }) {
+const checkFirstVerseContainsBismillah = (verse) => {
+  if (verse.trim() !== 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ') {
+    if (verse.includes('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ')) {
+      return verse.replace(/بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ/gi, '');
+    }
+  }
+
+  return verse;
+};
+
+function VersesItem({ audioRef, audio, translation, numberOfAyahs, handlePlayPauseAudio, number }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const onClick = () => {
@@ -45,15 +55,27 @@ function VersesItem({ audioRef, audio, translation, numberOfAyahs, handlePlayPau
       <Gap width="8px" height="30px" />
       <div>
         <div className="text-right mb-4 flex items-center justify-end">
-          <Text variant="text-arabic">
-            {audio?.text}
-            {'          '}
-            <Text
-              text={`( ${convertToArabicNumbers(audio?.numberInSurah || 1)} )`}
-              variant="text-arabic-0"
-              as="span"
-            />
-          </Text>
+          {number === 0 ? (
+            <Text variant="text-arabic">
+              {checkFirstVerseContainsBismillah(audio?.text)}
+              {'          '}
+              <Text
+                text={`( ${convertToArabicNumbers(audio?.numberInSurah || 1)} )`}
+                variant="text-arabic-0"
+                as="span"
+              />
+            </Text>
+          ) : (
+            <Text variant="text-arabic">
+              {audio?.text}
+              {'          '}
+              <Text
+                text={`( ${convertToArabicNumbers(audio?.numberInSurah || 1)} )`}
+                variant="text-arabic-0"
+                as="span"
+              />
+            </Text>
+          )}
         </div>
         <Gap height="8px" width="20px" />
         <Text variant="text-grey" text={translation?.text} />
@@ -65,6 +87,7 @@ function VersesItem({ audioRef, audio, translation, numberOfAyahs, handlePlayPau
 VersesItem.defaultProps = {
   numberOfAyahs: 0,
   translation: '',
+  number: 0,
 };
 
 VersesItem.propTypes = {
@@ -73,6 +96,7 @@ VersesItem.propTypes = {
   numberOfAyahs: PropTypes.number,
   handlePlayPauseAudio: PropTypes.func,
   audioRef: PropTypes.any,
+  number: PropTypes.number,
 };
 
 export default VersesItem;
