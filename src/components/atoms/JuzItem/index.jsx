@@ -10,11 +10,11 @@ function JuzItem({ onClick, number, juz, verses }) {
       onClick={onClick}
     >
       <div className="flex flex-row items-center">
-        <span className="bg-backgroound border-2 border-secondary text-secondary w-8 h-8 rounded-full flex justify-center items-center text-xs font-semibold mr-4 ">
+        <span className=" font-roboto bg-backgroound border-2 border-secondary text-secondary w-8 h-8 rounded-full flex justify-center items-center text-xs font-semibold mr-4 ">
           {number}
         </span>
         <div className="text-left">
-          <p className=" font-semibold">Juz {juz}</p>
+          <p className=" font-roboto font-medium">Juz {juz}</p>
           <Text variant="text-grey-2" text={`${verses} ayat`} />
         </div>
       </div>
