@@ -20,7 +20,7 @@ Text.defaultProps = {
 };
 
 Text.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   as: PropTypes.string,
   variant: PropTypes.string,
   children: PropTypes.node,

@@ -18,7 +18,7 @@ import {
 import { BANNER } from '../../constants/general';
 import { editData, logoutUser } from '../../redux/actions/auth';
 import { ICArrowTop, ILBackground2 } from '../../assets/images';
-import { getSurahById } from '../../redux/actions/quran';
+import { getJuzById, getSurahById } from '../../redux/actions/quran';
 import groupingIntoPartsOfTheSurah from '../../helpers/groupingIntoPartsOfTheSurah';
 
 function ReadingQuran({
@@ -27,6 +27,7 @@ function ReadingQuran({
   logout,
   getSurah,
   quran: { loading, currentReading },
+  getJuz,
 }) {
   const history = useHistory();
   const { state: surahDetail } = useLocation();
@@ -38,6 +39,7 @@ function ReadingQuran({
 
   const { translations: translationsOfSurah, audios: audiosOfSurah } =
     groupingIntoPartsOfTheSurah(currentReading);
+  let tempAyah = audiosOfSurah[0]?.surah;
 
   const handleToggleModalUsername = () => {
     editDzikir(data, { key: 'name', value: userName });
@@ -70,7 +72,9 @@ function ReadingQuran({
   useEffect(() => {
     // set window
     window.scrollTo(0, 0);
-    if (surahDetail.id) {
+    if (surahDetail.juz_number !== undefined) {
+      getJuz(surahDetail.juz_number);
+    } else {
       getSurah(surahDetail.id);
     }
 
@@ -112,35 +116,84 @@ function ReadingQuran({
               className="w-full h-full object-cover"
             />
             <div className=" absolute inset-0 flex flex-col justify-center py-2 px-20">
-              {/* <Text as="h1" variant="title" text="Al-Fatihah" /> */}
-              <p className=" font-roboto text-white text-xl font-medium">
-                {surahDetail.name_simple || ''}
-              </p>
-              <p className=" font-roboto text-white text-sm font-normal">
-                {surahDetail.translated_name.name || ''}
-              </p>
-              <div className=" absolute bottom-4 right-0 left-0 text-center">
-                <p className=" font-roboto text-white text-xs">
-                  {surahDetail.revelation_place || ''} - {surahDetail.verses_count} ayat
-                </p>
-              </div>
+              {surahDetail.juz_number !== undefined ? (
+                <>
+                  <p className=" font-roboto text-white text-xl font-medium">
+                    Juz {surahDetail?.juz_number || ''}
+                  </p>
+                  <p className=" font-roboto text-white text-sm font-normal">
+                    {surahDetail?.verses_count || ''} ayat
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className=" font-roboto text-white text-xl font-medium">
+                    {surahDetail?.name_simple || ''}
+                  </p>
+
+                  <p className=" font-roboto text-white text-sm font-normal">
+                    {surahDetail?.translated_name?.name || ''}
+                  </p>
+                  <div className=" absolute bottom-4 right-0 left-0 text-center">
+                    <p className=" font-roboto text-white text-xs">
+                      {surahDetail?.revelation_place || ''} - {surahDetail?.verses_count} ayat
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
           </div>
           <Gap width="8px" height="40px" />
+
+          {/* Ayah */}
+          {tempAyah && (
+            <div className="flex justify-between items-center bg-white p-3 rounded-full mb-4">
+              <div className=" w-3 h-3 rounded-full bg-gray-800" />
+              <Text variant="text-arabic-2" text={tempAyah.name} />
+              <div className=" w-3 h-3 rounded-full bg-gray-800" />
+            </div>
+          )}
           <section className=" flex flex-col">
             {audiosOfSurah.length > 0 &&
               translationsOfSurah.length > 0 &&
-              audiosOfSurah?.map((item, index) => (
-                <VersesItem
-                  key={item.number}
-                  audio={item}
-                  handlePlayPauseAudio={() => handlePlayPauseAudio(index)}
-                  translation={translationsOfSurah[index]}
-                  numberOfAyahs={audiosOfSurah.length}
-                  audioRef={audioRef}
-                  number={index}
-                />
-              ))}
+              audiosOfSurah?.map((item, index) => {
+                if (tempAyah && audiosOfSurah[index].surah.number) {
+                  if (tempAyah.number !== audiosOfSurah[index].surah.number) {
+                    tempAyah = audiosOfSurah[index].surah;
+                    return (
+                      <div key={item.number}>
+                        <div className="flex justify-between items-center bg-white p-3 rounded-full mb-4 mt-6">
+                          <div className=" w-3 h-3 rounded-full bg-gray-800" />
+                          <Text variant="text-arabic-2" text={tempAyah.name} />
+                          <div className=" w-3 h-3 rounded-full bg-gray-800" />
+                        </div>
+                        <VersesItem
+                          key={item.number}
+                          audio={item}
+                          handlePlayPauseAudio={() => handlePlayPauseAudio(index)}
+                          translation={translationsOfSurah[index]}
+                          numberOfAyahs={audiosOfSurah.length}
+                          audioRef={audioRef}
+                          number={index}
+                          numberInSurah={index + 1}
+                        />
+                      </div>
+                    );
+                  }
+                }
+                return (
+                  <VersesItem
+                    key={item.number}
+                    audio={item}
+                    handlePlayPauseAudio={() => handlePlayPauseAudio(index)}
+                    translation={translationsOfSurah[index]}
+                    numberOfAyahs={audiosOfSurah.length}
+                    audioRef={audioRef}
+                    number={index}
+                    numberInSurah={index + 1}
+                  />
+                );
+              })}
           </section>
           <Gap width="8px" height="80px" />
         </>
@@ -174,6 +227,7 @@ ReadingQuran.propTypes = {
   editDzikir: PropTypes.func,
   logout: PropTypes.func,
   getSurah: PropTypes.func,
+  getJuz: PropTypes.func,
   quran: PropTypes.any,
 };
 
@@ -186,6 +240,7 @@ const mapDispatchToProps = (dispatch) => ({
   editDzikir: (user, data) => dispatch(editData(user, data)),
   logout: (callback) => dispatch(logoutUser(callback)),
   getSurah: (id) => dispatch(getSurahById(id)),
+  getJuz: (number) => dispatch(getJuzById(number)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReadingQuran);

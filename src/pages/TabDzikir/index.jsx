@@ -111,9 +111,8 @@ function TabDzikirPage({ auth: { data }, logout, addDzikir, editDzikir }) {
           <Text variant="text-grey" text={lafadz?.translation} />
 
           <Gap height="18px" width="20px" />
-
-          <Button text="Mulai" onClick={handleOpenTabCount} />
         </button>
+        <Button text="Mulai" onClick={handleOpenTabCount} />
       </section>
 
       <Gap height="42px" width="20px" />

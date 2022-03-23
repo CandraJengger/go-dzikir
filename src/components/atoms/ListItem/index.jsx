@@ -23,7 +23,7 @@ ListItem.defaultProps = {
 
 ListItem.propTypes = {
   as: PropsTypes.string,
-  title: PropsTypes.string.isRequired,
+  title: PropsTypes.string,
   label: PropsTypes.string.isRequired,
   variant: PropsTypes.string,
 };

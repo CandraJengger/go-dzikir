@@ -1,4 +1,7 @@
 import {
+  GET_JUZ_BY_ID_FAIL,
+  GET_JUZ_BY_ID_LOADING,
+  GET_JUZ_BY_ID_SUCCESS,
   GET_JUZ_FAIL,
   GET_JUZ_LOADING,
   GET_JUZ_SUCCESS,
@@ -17,6 +20,7 @@ const quran = (state = initialQuranStates, { type, payload }) => {
     case GET_JUZ_LOADING:
     case GET_SURAH_LOADING:
     case GET_SURAH_BY_ID_LOADING:
+    case GET_JUZ_BY_ID_LOADING:
       return {
         ...state,
         loading: true,
@@ -36,6 +40,7 @@ const quran = (state = initialQuranStates, { type, payload }) => {
         dataBySurah: payload,
       };
 
+    case GET_JUZ_BY_ID_SUCCESS:
     case GET_SURAH_BY_ID_SUCCESS:
       return {
         ...state,
@@ -46,6 +51,7 @@ const quran = (state = initialQuranStates, { type, payload }) => {
     case GET_SURAH_FAIL:
     case GET_JUZ_FAIL:
     case GET_SURAH_BY_ID_FAIL:
+    case GET_JUZ_BY_ID_FAIL:
       return {
         ...state,
         loading: false,

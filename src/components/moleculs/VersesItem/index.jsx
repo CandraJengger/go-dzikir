@@ -14,7 +14,15 @@ const checkFirstVerseContainsBismillah = (verse) => {
   return verse;
 };
 
-function VersesItem({ audioRef, audio, translation, numberOfAyahs, handlePlayPauseAudio, number }) {
+function VersesItem({
+  audioRef,
+  audio,
+  translation,
+  numberOfAyahs,
+  handlePlayPauseAudio,
+  number,
+  numberInSurah,
+}) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const onClick = () => {
@@ -49,7 +57,7 @@ function VersesItem({ audioRef, audio, translation, numberOfAyahs, handlePlayPau
     <div className=" mb-5 border-b-2 pb-4 flex flex-col">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <Label text={`${audio?.numberInSurah || 1}:${numberOfAyahs}`} variant="secondary" />
+          <Label text={`${numberInSurah || 1}:${numberOfAyahs}`} variant="secondary" />
           <Gap width="8px" height="2px" />
           <RoundButton onClick={onClick}>
             {isPlaying ? <img src={ICPause} alt="pause" /> : <img src={ICPlay} alt="play" />}
@@ -95,6 +103,7 @@ VersesItem.defaultProps = {
   numberOfAyahs: 0,
   translation: '',
   number: 0,
+  numberInSurah: 0,
 };
 
 VersesItem.propTypes = {
@@ -104,6 +113,7 @@ VersesItem.propTypes = {
   handlePlayPauseAudio: PropTypes.func,
   audioRef: PropTypes.any,
   number: PropTypes.number,
+  numberInSurah: PropTypes.number,
 };
 
 export default VersesItem;

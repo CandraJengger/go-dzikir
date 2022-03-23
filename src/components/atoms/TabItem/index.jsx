@@ -15,7 +15,7 @@ function TabItem({ type, onClick }) {
   };
 
   return (
-    <button type="button" className="px-4" onClick={onClick}>
+    <button type="button" className="px-4 cursor-pointer" onClick={onClick}>
       <img src={Icon()} alt={type} />
     </button>
   );
