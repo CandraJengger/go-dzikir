@@ -6,7 +6,7 @@ import convertToArabicNumbers from '../../../helpers/convertToArabicNumbers';
 
 const checkFirstVerseContainsBismillah = (verse) => {
   if (verse.trim() !== 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ') {
-    if (verse.includes('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ')) {
+    if (verse.slice(0, 38) === 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ') {
       return verse.replace(/بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ/gi, '');
     }
   }
@@ -20,7 +20,6 @@ function VersesItem({
   translation,
   numberOfAyahs,
   handlePlayPauseAudio,
-  number,
   numberInSurah,
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -70,27 +69,15 @@ function VersesItem({
       <Gap width="8px" height="30px" />
       <div>
         <div className="text-right mb-4 flex items-center justify-end">
-          {number === 0 ? (
-            <Text variant="text-arabic">
-              {checkFirstVerseContainsBismillah(audio?.text)}
-              {'          '}
-              <Text
-                text={`( ${convertToArabicNumbers(audio?.numberInSurah || 1)} )`}
-                variant="text-arabic-0"
-                as="span"
-              />
-            </Text>
-          ) : (
-            <Text variant="text-arabic">
-              {audio?.text}
-              {'          '}
-              <Text
-                text={`( ${convertToArabicNumbers(audio?.numberInSurah || 1)} )`}
-                variant="text-arabic-0"
-                as="span"
-              />
-            </Text>
-          )}
+          <Text variant="text-arabic">
+            {checkFirstVerseContainsBismillah(audio?.text)}
+            {'          '}
+            <Text
+              text={`( ${convertToArabicNumbers(audio?.numberInSurah || 1)} )`}
+              variant="text-arabic-0"
+              as="span"
+            />
+          </Text>
         </div>
         <Gap height="8px" width="20px" />
         <Text variant="text-grey" text={translation?.text} />
@@ -102,7 +89,6 @@ function VersesItem({
 VersesItem.defaultProps = {
   numberOfAyahs: 0,
   translation: '',
-  number: 0,
   numberInSurah: 0,
 };
 
@@ -112,7 +98,6 @@ VersesItem.propTypes = {
   numberOfAyahs: PropTypes.number,
   handlePlayPauseAudio: PropTypes.func,
   audioRef: PropTypes.any,
-  number: PropTypes.number,
   numberInSurah: PropTypes.number,
 };
 
